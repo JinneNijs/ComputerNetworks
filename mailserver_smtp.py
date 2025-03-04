@@ -36,19 +36,24 @@ def findRecipients():
         #read all lines of the file
         lines = file.readlines()
         for line in lines:
+            #if line starts with space, end of file
             if line.startswith(" "):
                 break
+            #separate user from password
             recipient = line.split()[0]
+            #store user in set
             recipients.add(recipient)
     file.close()
-    print(recipients)
     return recipients
+#looks for stop signal
 def findMessage(text):
     stopIndex = text.find("//")
     return text[:stopIndex]
 
 def storeMessage(user,text):
+    #look for stop signal and returns actual message
     message = findMessage(text)
+    #store in mailbox of user
     with open(user + "/my_mailbox", "a") as myfile:
         myfile.write(message)
     return "OK"
@@ -127,12 +132,15 @@ def main():
         elif text.startswith("DATA") and cs.get("RCPT") == "OK":
             # // is our STOP signal
             c.send((commands.get(354) + "Enter messgage, end with //: ").encode())
+            #receive message
             message = c.recv(1024).decode()
 
-
+            #store message in mailbox of username
             cs = storeMessage(username,message)
+            #if stored, send 250 ok
             if cs == "OK":
                 c.send(commands.get(250).encode())
+            # end of mail
             break
     c.close()
 
