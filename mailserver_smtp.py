@@ -1,6 +1,10 @@
 import os
 import socket
 
+#COMMANDS
+commands = {250:"250 OK",
+            -1 : "ERROR"}
+
 def findUsername(text):
     index_from = int(text.find('From:'))
     index_at = int(text.find('@'))
@@ -8,11 +12,17 @@ def findUsername(text):
         return 0
     Username = text[index_from+5:index_at]
     return Username
-
+def findReversePath(text):
+    index_from = int(text.find('FROM:'))
+    if index_from==-1:
+        return "/"
+    #text van de vorm MAIL FROM:<reversepath>
+    rp = text[index_from+5:]
+    return rp
 
 def main():
     #specify which port to listen on
-    my_port = int(input("Specify my_port "))
+    my_port = 12345
     #get the hostname of the server
     hostname = socket.gethostname()
     print(hostname)
@@ -39,11 +49,17 @@ def main():
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
         data = c.recv(1024).decode()
-        print("data received")
         # If no data is received, break the loop
         if not data or data == "Exit":
             break
         print(f"Received from client: {data}")
+        if data.startswith("MAIL"):
+            #clear out buffers etc..
+            rp = findReversePath(data)
+            if rp == "/":
+                c.send(commands.get(-1).encode())
+                break
+            c.send(commands.get(250).encode())
         username = findUsername(data)
         if username == 0:
             str = input("S: ")

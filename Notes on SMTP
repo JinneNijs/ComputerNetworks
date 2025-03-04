@@ -15,3 +15,18 @@ transmission done? => connection closed
 smtp can only send plain text
 
 socket.bind != socket.connect , wat is wat??
+
+1 MAIL : identificatie sender
+    1a ok
+    1b nok
+2 RCPT : identificatie van recipien (server and mail may negotiate multiple recipients)
+    2a ok
+    2b rejecting recipient
+3 DATA
+    terminated with special string
+    3a succesfully received
+    3b error
+ bron RCF 821
+  The first step in the procedure is the MAIL command.  The
+   <reverse-path> contains the source mailbox.
+  MAIL <SP> FROM:<reverse-path> <CRLF>

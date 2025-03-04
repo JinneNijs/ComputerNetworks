@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="First try of socket + sending data over socket&#10;Works">
-      <change afterPath="$PROJECT_DIR$/Jinne/my_mailbox" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/userinfo.txt" afterDir="false" />
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication ba">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Notes on SMTP" beforeDir="false" afterPath="$PROJECT_DIR$/Notes on SMTP" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,12 +85,21 @@
       <option name="project" value="LOCAL" />
       <updated>1741021845748</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Communication ba">
+      <option name="closed" value="true" />
+      <created>1741082503660</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741082503660</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Startup" />
     <MESSAGE value="First try of socket + sending data over socket&#10;Works" />
-    <option name="LAST_COMMIT_MESSAGE" value="First try of socket + sending data over socket&#10;Works" />
+    <MESSAGE value="Communication ba" />
+    <option name="LAST_COMMIT_MESSAGE" value="Communication ba" />
   </component>
 </project>
