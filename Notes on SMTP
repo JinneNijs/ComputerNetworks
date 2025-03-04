@@ -1,0 +1,17 @@
+SMTP uses SSL (secure socket layer) or TlS (transport layer security)
+library socket may be used
+
+bron : https://mailtrap.io/blog/smtp/
+
+sender's email client = SMTP client
+sender's email server = SMTP server
+
+client initiates a connection and transmits email
+server processes this email and determines suitable next server
+
+once connection is established, client will transfer data
+transmission done? => connection closed
+
+smtp can only send plain text
+
+socket.bind != socket.connect , wat is wat??
