@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication ba">
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication back and forth with MAIL protocol">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Notes on SMTP" beforeDir="false" afterPath="$PROJECT_DIR$/Notes on SMTP" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
@@ -36,6 +36,9 @@
     "accountId": "6fc7f632-9970-4698-ad0a-728cdb9671d2"
   }
 }]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/mailserver_smtp.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -93,13 +96,22 @@
       <option name="project" value="LOCAL" />
       <updated>1741082503660</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Communication back and forth with MAIL protocol">
+      <option name="closed" value="true" />
+      <created>1741084307255</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741084307255</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Startup" />
     <MESSAGE value="First try of socket + sending data over socket&#10;Works" />
     <MESSAGE value="Communication ba" />
-    <option name="LAST_COMMIT_MESSAGE" value="Communication ba" />
+    <MESSAGE value="Communication back and forth with MAIL protocol" />
+    <option name="LAST_COMMIT_MESSAGE" value="Communication back and forth with MAIL protocol" />
   </component>
 </project>
