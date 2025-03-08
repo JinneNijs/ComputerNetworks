@@ -30,3 +30,12 @@ socket.bind != socket.connect , wat is wat??
   The first step in the procedure is the MAIL command.  The
    <reverse-path> contains the source mailbox.
   MAIL <SP> FROM:<reverse-path> <CRLF>
+
+
+        username = findUsername(text)
+        if username == 0:
+            str = input("S: ")
+            c.send(str.encode())
+        else:
+            with open(username +"/my_mailbox","a") as myfile:
+                myfile.write(text)
