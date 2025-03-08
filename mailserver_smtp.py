@@ -62,6 +62,68 @@ def findAndAppendTime(full_message):
     string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
     full_message.append("Received: " + string_local_time)
 
+def MailSendingServer(c, cs):
+    while True:
+        text = c.recv(1024).decode()
+        if text.startswith("MAIL"):
+            # clear out buffers etc..
+            cs["MAIL"] = "NOK"
+            cs["RCPT"] = "NOK"
+            rp = findReversePath(text)
+            # no reversepath found
+            if rp == "/":
+                # send ERROR
+                c.send(commands.get(-1).encode())
+                break
+            # reverspath ok, send 250 ok
+            c.send(commands.get(250).encode())
+            # UPDATE CONTROLSIGNAL
+            cs["MAIL"] = "OK"
+        # RCPT
+        # check also that MAIL procedure has been gone through
+        elif text.startswith("RCPT") and cs.get("MAIL") == "OK":
+
+            fp = findForwardPath(text)
+            username = findUsername(fp)
+            # find all possible recipients at this given moment
+            recipients = findRecipients()
+            # if no forwardpath is found
+            if fp == "/":
+                c.send(commands.get(-1).encode())
+                break
+            # recipient not in database
+            if username not in recipients:
+                # send 550 ERROR
+                c.send(commands.get(550).encode())
+                break
+            # forwardpath found and recipient ok
+            # send 250 ok
+            c.send(commands.get(250).encode())
+            cs["RCPT"] = "OK"
+        # DATA
+        elif text.startswith("DATA") and cs.get("RCPT") == "OK":
+            # // is our STOP signal
+            c.send((commands.get(354) + "Enter message, end with //: ").encode())
+            # receive message
+            full_message = []
+            while True:
+                message_line = c.recv(1024).decode()
+                if message_line == ".":
+                    break
+                full_message.append(message_line)
+                # Na de subject line, vind de tijd en voeg deze toe aan de message
+                if message_line.startswith("Subject:"):
+                    findAndAppendTime(full_message)
+            # put all the lines in 1 string and seperate them with new line
+            message = "\n".join(full_message)
+
+            # store message in mailbox of username
+            cs = storeMessage(username, message)
+            # if stored, send 250 ok
+            if cs == "OK":
+                c.send(commands.get(250).encode())
+            # end of mail
+            return
 def main():
     #specify which port to listen on
     my_port = 12345
@@ -97,66 +159,9 @@ def main():
             break
         print(f"Received from client: {text}")
         # MAIL
-        if text.startswith("MAIL"):
-            #clear out buffers etc..
-            cs["MAIL"]= "NOK"
-            cs["RCPT"] = "NOK"
-            rp = findReversePath(text)
-            # no reversepath found
-            if rp == "/":
-                #send ERROR
-                c.send(commands.get(-1).encode())
-                break
-            #reverspath ok, send 250 ok
-            c.send(commands.get(250).encode())
-            # UPDATE CONTROLSIGNAL
-            cs["MAIL"]= "OK"
-        # RCPT
-        #check also that MAIL procedure has been gone through
-        elif text.startswith("RCPT") and cs.get("MAIL") == "OK":
-
-            fp = findForwardPath(text)
-            username = findUsername(fp)
-            # find all possible recipients at this given moment
-            recipients = findRecipients()
-            #if no forwardpath is found
-            if fp =="/":
-                c.send(commands.get(-1).encode())
-                break
-            # recipient not in database
-            if username not in recipients:
-                #send 550 ERROR
-                c.send(commands.get(550).encode())
-                break
-            #forwardpath found and recipient ok
-            # send 250 ok
-            c.send(commands.get(250).encode())
-            cs["RCPT"] = "OK"
-        #DATA
-        elif text.startswith("DATA") and cs.get("RCPT") == "OK":
-            # // is our STOP signal
-            c.send((commands.get(354) + "Enter message, end with //: ").encode())
-            #receive message
-            full_message = []
-            while True:
-                message_line = c.recv(1024).decode()
-                if message_line == ".":
-                    break
-                full_message.append(message_line)
-                #Na de subject line, vind de tijd en voeg deze toe aan de message
-                if message_line.startswith("Subject:"):
-                    findAndAppendTime(full_message)
-            #put all the lines in 1 string and seperate them with new line
-            message = "\n".join(full_message)
-
-            #store message in mailbox of username
-            cs = storeMessage(username,message)
-            #if stored, send 250 ok
-            if cs == "OK":
-                c.send(commands.get(250).encode())
-            # end of mail
-            break
-    c.close()
+        if text == "Mail Sending" or text == "1":
+            MailSendingServer(c, cs)
+        c.close()
 
 
 
