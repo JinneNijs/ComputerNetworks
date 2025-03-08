@@ -1,12 +1,13 @@
 import os
 import socket
+import time
 from fileinput import close
 
 #COMMANDS
-commands = {250:"250 OK",
-            -1 : "ERROR",
-            550 : "550 No such user",
-            354 : "354 Intermediate reply"}
+commands = {250: "250 OK",
+            -1: "ERROR",
+            550: "550 No such user",
+            354: "354 Intermediate reply"}
 
 def findUsername(text):
 
@@ -45,18 +46,21 @@ def findRecipients():
             recipients.add(recipient)
     file.close()
     return recipients
-#looks for stop signal
-def findMessage(text):
-    stopIndex = text.find("//")
-    return text[:stopIndex]
+
+
 
 def storeMessage(user,text):
     #look for stop signal and returns actual message
-    message = findMessage(text)
     #store in mailbox of user
     with open(user + "/my_mailbox", "a") as myfile:
-        myfile.write(message)
+        myfile.write(text)
+        myfile.write("\n\n")
     return "OK"
+
+def findAndAppendTime(full_message):
+    local_time = time.localtime()
+    string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
+    full_message.append("Received: " + string_local_time)
 
 def main():
     #specify which port to listen on
@@ -109,7 +113,7 @@ def main():
             cs["MAIL"]= "OK"
         # RCPT
         #check also that MAIL procedure has been gone through
-        elif text.startswith("RCPT") and cs.get("MAIL")=="OK":
+        elif text.startswith("RCPT") and cs.get("MAIL") == "OK":
 
             fp = findForwardPath(text)
             username = findUsername(fp)
@@ -131,9 +135,19 @@ def main():
         #DATA
         elif text.startswith("DATA") and cs.get("RCPT") == "OK":
             # // is our STOP signal
-            c.send((commands.get(354) + "Enter messgage, end with //: ").encode())
+            c.send((commands.get(354) + "Enter message, end with //: ").encode())
             #receive message
-            message = c.recv(1024).decode()
+            full_message = []
+            while True:
+                message_line = c.recv(1024).decode()
+                if message_line == ".":
+                    break
+                full_message.append(message_line)
+                #Na de subject line, vind de tijd en voeg deze toe aan de message
+                if message_line.startswith("Subject:"):
+                    findAndAppendTime(full_message)
+            #put all the lines in 1 string and seperate them with new line
+            message = "\n".join(full_message)
 
             #store message in mailbox of username
             cs = storeMessage(username,message)
