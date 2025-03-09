@@ -39,3 +39,6 @@ socket.bind != socket.connect , wat is wat??
         else:
             with open(username +"/my_mailbox","a") as myfile:
                 myfile.write(text)
+
+
+import pickle (mag dit wel?) om een lijst door te sturen

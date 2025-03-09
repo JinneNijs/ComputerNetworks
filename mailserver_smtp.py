@@ -124,6 +124,8 @@ def MailSendingServer(c, cs):
                 c.send(commands.get(250).encode())
             # end of mail
             return
+
+
 def main():
     #specify which port to listen on
     my_port = 12345
@@ -161,7 +163,7 @@ def main():
         # MAIL
         if text == "Mail Sending" or text == "1":
             MailSendingServer(c, cs)
-        c.close()
+    c.close()
 
 
 
