@@ -28,16 +28,16 @@ def checkTextFile(user, password):
 
 def userAuthentication(socket):
     while True:
-        user_text = "USER: "
+        user_text = "USER"
         socket.send(user_text.encode())
         received_user = socket.recv(1024).decode()
-        password_test = "PASS: "
+        password_test = "PASS"
         socket.send(password_test.encode())
         received_password = socket.recv(1024).decode()
         test = checkTextFile(received_user, received_password)
         if test == 1:
             connection_text = "+OK POP3 server is ready"
-            socket.send(error_text.encode())
+            socket.send(connection_text.encode())
             return received_user
         else:
             error_text = "Wrong credentials, try again"
@@ -53,27 +53,49 @@ def getMailInfo(mail):
     info.append(received)
     info.append(subject)
     return
+
+
 def findMails(username):
     mailList = []
-    with open(username + "/my_mailbox", "a") as myfile:
-        #Doordat ik het "." niet mee in de mailbox steek, moet ik dit als splitsing
-        # gebruiken, maar dan mogen er dus geen 2 lege lijnen in een mail zijn
-        emails = myfile.read().strip().split("\n\n")
-        for i in range(0, len(emails)):
-            # Zodat ser_nr bij 1 start
-            ser_nr = i + 1
-            #Haal de sender, received & subject uit de mails
-            lines = emails[i].strip().split("\n")
-            info = []
-            sender = lines[0]
-            received = lines[3]
-            subject = lines[2]
-            info.append(ser_nr)
-            info.append(sender)
-            info.append(received)
-            info.append(subject)
-            mailList.append(info)
+    current_mail = []
+    with open(username + "/my_mailbox", "r") as myfile:
+        # Read file line by line
+        line = myfile.readline()
+        ser_nr = 1
+        while line:
+            line = line.strip()  # Clean up the line
+            if line == "":  # Empty line marks the end of the current email
+                # Only process mail if there's data collected
+                if current_mail:
+                    # Extract the sender, subject, and received details
+                    sender = current_mail[0]
+                    subject = current_mail[2]
+                    received = current_mail[3]
+
+                    # Add to mailList with the serial number
+                    mailList.append([ser_nr, sender, received, subject])
+                    current_mail = []  # Reset for the next mail
+
+                    ser_nr += 1  # Increment serial number for next email
+
+            else:
+                # Collect the current mail's lines
+                current_mail.append(line)
+
+            # Read the next line
+            line = myfile.readline()
+
+        # After the loop, check if there is any remaining mail to process
+        if current_mail:
+            sender = current_mail[0]
+            subject = current_mail[2]
+            received = current_mail[3]
+            mailList.append([ser_nr, sender, received, subject])
+
     return mailList
+
+
+
 def main():
     # specify which port to listen on
     my_port = 12346
@@ -119,3 +141,6 @@ def main():
             option = c.recv(1024).decode()
             mailSearchingServer(c, option)
     c.close()
+
+if __name__== "__main__":
+    main()

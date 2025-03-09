@@ -42,6 +42,23 @@ def MailSearchingClient(socket, option):
     return
 
 
+def MailManagementClient(socket):
+    # The part for the authentication
+    while True:
+        received = socket.recv(1024).decode()
+        print(f"N: {received}")
+        if received == "USER" or received == "PASS":
+            str = input('S: ')
+            socket.send(str.encode())
+        elif received.startswith("Wrong credentials"):
+            continue
+        elif received.startswith("["):
+            current_maillist = received
+            #If the mailing list is received, go on to the management part where you can enter commands like STAT(which I haven't written yet)
+            #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
+            break
+
+
 
 
 def main():
@@ -61,14 +78,16 @@ def main():
         if str == "Mail Sending" or str == "1":
             smtp_socket.send(str.encode())
             MailSendingClient(smtp_socket)
+        if str == "Mail Management" or str == "2":
+            pop3_socket.send(str.encode())
+            MailManagementClient(pop3_socket)
         if str == "Mail Searching" or str == "3":
+            #Vraag, moet je voor mail searching eerst mail management gedaan hebben (en ingelogd zijn?) Zo ja, werken met commands zoals bij mail sending?
             pop3_socket.send(str.encode())
             option = input('How would you like to search: 1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): ')
             pop3_socket.send(option.encode())
             MailSearchingClient(pop3_socket,option)
-        if str == "Mail Management" or str == "2":
-            smtp_socket.send(str.encode())
-            #MailManagementClient()
+
 
     smtp_socket.close()
     pop3_socket.close()

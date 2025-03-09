@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Added an input to start the client where they choose which option and made seperate functions for MailSendingClient and MailSendingServer so that the main functions will not be too large">
-      <change afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Started on Mail Management part in (mostly) popserver.py.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notes on SMTP" beforeDir="false" afterPath="$PROJECT_DIR$/Notes on SMTP" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stan/my_mailbox" beforeDir="false" afterPath="$PROJECT_DIR$/Stan/my_mailbox" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741443419246</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Started on Mail Management part in (mostly) popserver.py.">
+      <created>1741527670301</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1741527670301</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -137,6 +141,7 @@
     <MESSAGE value="Communication back and forth with MAIL protocol" />
     <MESSAGE value="Client can send messages of multiple lines and the server adds the local time at the right place. Still need to add a function (in the client?) that checks the format of the mail, but is difficult right now because each line is send independently to the server. Maybe first append all lines inside the client and send the whole message as one to the server?" />
     <MESSAGE value="Added an input to start the client where they choose which option and made seperate functions for MailSendingClient and MailSendingServer so that the main functions will not be too large" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added an input to start the client where they choose which option and made seperate functions for MailSendingClient and MailSendingServer so that the main functions will not be too large" />
+    <MESSAGE value="Started on Mail Management part in (mostly) popserver.py." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started on Mail Management part in (mostly) popserver.py." />
   </component>
 </project>
