@@ -21,7 +21,35 @@ def MailSendingClient(client_socket):
         if received_text == "ERROR":
             break
 
-def MailSearchingClient(socket, option):
+#doet hetzelfde als findMails, maar houdt nu de volledige mails bij
+def findFullMails(username):
+    mailList = []
+    current_mail = []
+    with open(username + "/my_mailbox", "r") as myfile:
+        # Read file line by line
+        line = myfile.readline()
+        ser_nr = 1
+        while line:
+            line = line.strip()  # Clean up the line
+            if line == "":  # Empty line marks the end of the current email
+                # Only process mail if there's data collected
+                if current_mail:
+
+                    # Add to mailList with the serial number
+                    mailList.append(current_mail)
+                    current_mail = []  # Reset for the next mail
+
+                    ser_nr += 1  # Increment serial number for next email
+                else:
+                    break
+            else:
+                # Collect the current mail's lines
+                current_mail.append(line)
+
+            # Read the next line
+            line = myfile.readline()
+    return mailList
+def MailSearchingClient(socket, option, username):
     #Searching for words
     if option == "1)":
         words = input('Words/sentences input: ')
@@ -31,12 +59,42 @@ def MailSearchingClient(socket, option):
     #Searching for address
     if option == "3)":
         words = input('Email address: ')
+    print("output:")
+    #lijst met de volledige mails
+    maillist = findFullMails(username)
+    #option 1 = words/sentences
+    for mail in maillist:
+        if option == "1)":
+            for i in range(0,len(mail)):
+                if words in mail[i]:
+                    #Voeg het message-gedeelte samen in 1 item in de lijst in plaats van dat elke aparte lijn 1 lijstitem is
+                    processed_email = mail[:4] + ['\n'.join(mail[4:])]
+                    print(processed_email)
+                    break
+        if option == "2)":
+            date = words.split("/")
+            month = date[0]
+            day = date[1]
+            year = date[2]
+            #datum op zelfde manier als in de mails
+            right_date = "20" + year + "-" + month + "-" + day
+            if right_date in mail[3]:
+                #Voeg het message-gedeelte samen in 1 item in de lijst in plaats van dat elke aparte lijn 1 lijstitem is
+                processed_email = mail[:4] + ['\n'.join(mail[4:])]
+                print(processed_email)
+        if option == "3)":
+            if words in mail[0]:
+                #Voeg het message-gedeelte samen in 1 item in de lijst in plaats van dat elke aparte lijn 1 lijstitem is
+                processed_email = mail[:4] + ['\n'.join(mail[4:])]
+                print(processed_email)
+    return
 
     socket.send(words.encode())
+    print("output:\n")
     while True:
         mail = socket.recv(1024).decode()
         if mail.startswith("From:"):
-            print("{" + mail + "}")
+            print("{" + mail + "}\n")
         else:
             break
     return
@@ -61,7 +119,8 @@ def MailManagementClient(socket):
             while True:
                 command = input("Command? ")
                 socket.send(command.encode())
-                if command == "STAT":
+                #stat en dele moeten zelfde doen
+                if command == "STAT" or command.startswith("DELE") or command == "RSET":
                     received = socket.recv(1024).decode()
                     print(f"N: {received}")
                 if command.startswith("LIST"):
@@ -137,7 +196,7 @@ def main():
             pop3_socket.send(str.encode())
             option = input('How would you like to search: 1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): ')
             pop3_socket.send(option.encode())
-            MailSearchingClient(pop3_socket,option)
+            MailSearchingClient(pop3_socket,option, username)
 
 
     smtp_socket.close()
