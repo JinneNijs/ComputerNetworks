@@ -33,9 +33,15 @@ def userAuthentication(socket):
         user_text = "USER"
         socket.send(user_text.encode())
         received_user = socket.recv(1024).decode()
+        if received_user == "QUIT":
+            socket.send(("+OK POP3 server signing off").encode())
+            return "quit"
         password_text = "PASS"
         socket.send(password_text.encode())
         received_password = socket.recv(1024).decode()
+        if received_password == "QUIT":
+            socket.send(("+OK POP3 server signing off").encode())
+            return "quit"
         #checks if user and password are know and valid, returns 1 if true, 0 if not
         test = checkTextFile(received_user, received_password)
         if test == 1:
@@ -95,7 +101,8 @@ def findMails(username):
     return mailList
 def performSTAT(maillist,username):
     with open(username +"/my_mailbox","r") as myfile:
-        bytes = sys.getsizeof(myfile)
+        message ="".join(myfile.readlines())
+        bytes = sys.getsizeof(message)
     myfile.close()
     length = findNumberOfMessages(maillist)
     return length, bytes
@@ -103,6 +110,30 @@ def performSTAT(maillist,username):
 def findNumberOfMessages(list):
     length = len(list)
     return length
+
+def scanListing(user):
+
+    numbers_bytes = []
+    message= ""
+    with open(user+"/my_mailbox",'r') as myfile:
+
+        while True:
+            line = myfile.readline()
+            if line == "":
+                break
+            if line == "\n":
+                numbers_bytes.append(sys.getsizeof(message))
+                message = ""
+                continue
+            message += line
+
+
+    myfile.close()
+    return numbers_bytes
+
+
+
+
 def main():
     # specify which port to listen on
     my_port = 12346
@@ -137,8 +168,11 @@ def main():
         print(f"Received from client: {text}")
         # Mail management
         if text == "Mail Management" or text == "2":
+
             #checkt username en password
             user = userAuthentication(c)
+            if user == "quit":
+                continue
             #verzamelt alle eerder gekregen mails van de user in een geordende lijst
             mailList = findMails(user)
             strList = str(mailList)
@@ -147,32 +181,33 @@ def main():
             deleted_mails = []
             while True:
                 command = c.recv(1024).decode()
+                bytes = scanListing(user)
+                total = len(bytes)
                 if command == "STAT":
-                    len,bytes = performSTAT(mailList,user)
-                    c.send((f"+OK {len} {bytes}").encode())
+                    c.send((f"+OK {len(bytes)} {sum(bytes)}").encode())
                 elif command.startswith("LIST"):
 
                     if command == "LIST":
-                        print(mailList)
-                        len,bytes = performSTAT(mailList,user)
-                        c.send((f"+OK {len} {bytes}").encode())
-
+                        c.send((f"+OK {len(bytes)} {sum(bytes)}").encode())
+                        for nr in range(0,len(bytes)):
+                            c.send((f"+OK {nr+1} {bytes[nr]}").encode())
+                            time.sleep(1)
+                        time.sleep(1)
                         c.send(".".encode())
                     else:
                         command, nr = command.split()
-                        len, bytes = performSTAT(mailList[int(nr)],user)
-                        if int(nr) > len:
+                        nr= int(nr)
+                        if nr > total:
                             c.send(("ERROR nr is bigger than number of messages").encode())
-
-                        c.send((f"+OK {nr} {bytes}").encode())
+                        c.send((f"+OK {nr} {bytes[nr-1]}").encode())
                 elif command.startswith("RETR"):
                     if command == "RETR":
                         c.send(("-ERR no message number attached").encode())
                     else:
                         command, nr = command.split()
-                        len = findNumberOfMessages(mailList)
+                        total = findNumberOfMessages(mailList)
                         nr = int(nr)
-                        if nr > len:
+                        if nr > total:
                             c.send(("-ERR no such message").encode())
                         #hier moet eerst de grootte van die ene mail gevonden worden en dan de message doorgegeven worden (zie rfc)
                         #eindigen door een punt door te sturen
@@ -181,9 +216,9 @@ def main():
                         c.send(("-ERR no message number attached").encode())
                     else:
                         command, nr = command.split()
-                        len = findNumberOfMessages(mailList)
+                        total = findNumberOfMessages(mailList)
                         nr = int(nr)
-                        if nr > len:
+                        if nr > total:
                             c.send(("-ERR no such message").encode())
                         else:
                             if nr in deleted_mails:
@@ -195,8 +230,8 @@ def main():
                 elif command == "RSET":
                     #lijst terug nul maken
                     deleted_mails = []
-                    len, bytes = performSTAT(mailList,user)
-                    c.send((f"+OK maildrop has {len} messages ({bytes} octets)").encode())
+                    total, bytes = performSTAT(mailList,user)
+                    c.send((f"+OK maildrop has {total} messages ({bytes} octets)").encode())
                 elif command == "QUIT":
                     # remove all messages markes as delete TO DO
                     nmbrOfMess = str(findNumberOfMessages(mailList))

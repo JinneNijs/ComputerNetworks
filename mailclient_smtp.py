@@ -1,4 +1,5 @@
 import socket
+import time
 from os import popen
 
 
@@ -110,29 +111,31 @@ def MailSearchingClient(socket, option, username):
             break
     return
 
-
+# bdlt om mails van een persoon te managen
 def MailManagementClient(pop_socket):
     # The part for the authentication
     while True:
         received = pop_socket.recv(1024).decode()
         print(f"N: {received}")
+        # command QUIT has been enterd, get out of managment system
         if "signing off" in received:
             break
+        # pop server will ask for authentication
         if received == "USER" or received == "PASS":
             str = input('S: ')
             pop_socket.send(str.encode())
         elif received.startswith("Wrong credentials"):
             continue
         elif received.startswith("["):
-            current_maillist = received
-            #If the mailing list is received, go on to the management part where you can enter commands like STAT(which I haven't written yet)
+            #current_maillist = received
+            #If the mailing list is received, go on to the management part where you can enter commands like STAT
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
             while True:
                 command = input("Command? ")
                 pop_socket.send(command.encode())
                 #stat en dele moeten zelfde doen
                 if command == "STAT" or command.startswith("DELE") or command == "RSET":
-                    received = pop_socket().recv(1024).decode()
+                    received = pop_socket.recv(1024).decode()
                     print(f"N: {received}")
                 if command.startswith("LIST"):
                     if len(command)> len("LIST"):
