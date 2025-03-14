@@ -1,23 +1,30 @@
 import socket
-
-def MailSendingClient(client_socket):
+# send mails to the mailserver socket, using SMTP protocol
+# berichten moeten hier in de volgende volgorde verstuurd worden en in dit formaat:
+# 1 : MAIL FROM: <name@example.com>
+# 2 : RCPT TO: <name@example.com>
+# 3 : DATA <message>
+def MailSendingClient(mailserver_socket):
     while True:
         str = input('S: ')
-        client_socket.send(str.encode())
-        received_text = client_socket.recv(1024).decode()
+        mailserver_socket.send(str.encode())
+        received_text = mailserver_socket.recv(1024).decode()
         print(f"N: {received_text}")
+
         if received_text.startswith("354"):
             while True:
                 message_str = input('S: ')
-                client_socket.send(message_str.encode())
+                mailserver_socket.send(message_str.encode())
                 if message_str == ".":
-                    received_text = client_socket.recv(1024).decode()
+                    received_text = mailserver_socket.recv(1024).decode()
                     if received_text.startswith("250"):
                         print(f"N: {received_text}" + ", Message sent")
                         return
                     else:
                         print("ERROR: Start over with MAIL FROM")
                         break
+        if received_text.startswith("550"):
+            break
         if received_text == "ERROR":
             break
 
@@ -164,6 +171,9 @@ def checkTextFile(user, password):
 
 
 def main():
+    # definier poort, vindt hostname en maak een socket aan
+    # bind de socket aan de poort en hostname
+    # analoog voor de pop server
     smtp_port = 12345
     smtp_socket = socket.socket()
     hostname = socket.gethostname()
@@ -172,7 +182,9 @@ def main():
     pop3_port = 12346
     pop3_socket = socket.socket()
     pop3_socket.connect((hostname,pop3_port))
+
     while True:
+        # vraag name en passwoord op
         username = input("Username? ")
         password = input("Password?")
         # checks if user and password are know and valid, returns 1 if true, 0 if not
@@ -181,16 +193,19 @@ def main():
             break
         print("Wrong Username or Password. Please try again!")
     while True:
-
+        # geef alle opties aan de klant voor het beheren van zijn mailbox
         str = input('Hello '+ username + '\nOptions:\n 1)Mail Sending,\n 2) Mail Management,\n 3) Mail searching,\n 4) Exit ?\n Enter number or name: ')
         if str == "Exit" or str == "4":
             break
+            # Optie 1 : mail sending
         if str == "Mail Sending" or str == "1":
             smtp_socket.send(str.encode())
             MailSendingClient(smtp_socket)
+            # Optie 2 : mail managment
         if str == "Mail Management" or str == "2":
             pop3_socket.send(str.encode())
             MailManagementClient(pop3_socket)
+            # Optie 3: mail searching
         if str == "Mail Searching" or str == "3":
             #Vraag, moet je voor mail searching eerst mail management gedaan hebben (en ingelogd zijn?) Zo ja, werken met commands zoals bij mail sending?
             pop3_socket.send(str.encode())
