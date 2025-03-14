@@ -1,4 +1,7 @@
 import socket
+from os import popen
+
+
 # send mails to the mailserver socket, using SMTP protocol
 # berichten moeten hier in de volgende volgorde verstuurd worden en in dit formaat:
 # 1 : MAIL FROM: <name@example.com>
@@ -24,9 +27,10 @@ def MailSendingClient(mailserver_socket):
                         print("ERROR: Start over with MAIL FROM")
                         break
         if received_text.startswith("550"):
-            break
+            continue
         if received_text == "ERROR":
             break
+
 
 #doet hetzelfde als findMails, maar houdt nu de volledige mails bij
 def findFullMails(username):
@@ -107,16 +111,16 @@ def MailSearchingClient(socket, option, username):
     return
 
 
-def MailManagementClient(socket):
+def MailManagementClient(pop_socket):
     # The part for the authentication
     while True:
-        received = socket.recv(1024).decode()
+        received = pop_socket.recv(1024).decode()
         print(f"N: {received}")
         if "signing off" in received:
             break
         if received == "USER" or received == "PASS":
             str = input('S: ')
-            socket.send(str.encode())
+            pop_socket.send(str.encode())
         elif received.startswith("Wrong credentials"):
             continue
         elif received.startswith("["):
@@ -125,18 +129,18 @@ def MailManagementClient(socket):
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
             while True:
                 command = input("Command? ")
-                socket.send(command.encode())
+                pop_socket.send(command.encode())
                 #stat en dele moeten zelfde doen
                 if command == "STAT" or command.startswith("DELE") or command == "RSET":
-                    received = socket.recv(1024).decode()
+                    received = pop_socket().recv(1024).decode()
                     print(f"N: {received}")
                 if command.startswith("LIST"):
                     if len(command)> len("LIST"):
-                        received = socket.recv(1024).decode()
+                        received = pop_socket.recv(1024).decode()
                         print(f"N: {received}")
                     else:
                         while True:
-                            received = socket.recv(1024).decode()
+                            received = pop_socket.recv(1024).decode()
                             print(f"N: {received}")
                             if received == ".":
                                 break

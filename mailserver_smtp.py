@@ -75,7 +75,14 @@ def findAndAppendTime(full_message):
 def MailSendingServer(c, cs):
     while True:
         text = c.recv(1024).decode()
-        if text.startswith("MAIL FROM:"):
+        if text.startswith("HELO"):
+            cs["HELO"] = "NOK"
+            if text[4:] == " vtk.be":
+                c.send((commands.get(250) + f" Hello vtk.be").encode())
+                cs["HELO"]= "OK"
+            else:
+                c.send((commands.get(-1) +" wrong domain").encode())
+        elif text.startswith("MAIL FROM:") and cs["HELO"]=="OK":
             # clear out buffers etc..
             cs["MAIL"] = "NOK"
             cs["RCPT"] = "NOK"
@@ -100,13 +107,13 @@ def MailSendingServer(c, cs):
             recipients = findRecipients()
             # if no forwardpath is found
             if fp == "/":
-                c.send((commands.get(-1) + " RCPT id not correct").encode())
+                c.send((commands.get(-1) + " RCPT format incorrect").encode())
                 break
             # recipient not in database
             if username not in recipients:
                 # send 550 ERROR
                 c.send(commands.get(550).encode())
-                break
+                continue
             # forwardpath found and recipient ok
             # send 250 ok
             c.send(commands.get(250).encode())
@@ -164,7 +171,8 @@ def main():
     c, adress = my_socket.accept()
     print(f"Connected to: {adress}")
     #control signals
-    cs = {"MAIL": "NOK",
+    cs = {"HELO" : "NOK",
+          "MAIL": "NOK",
           "RCPT": "NOK"}
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it

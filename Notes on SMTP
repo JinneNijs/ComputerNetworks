@@ -42,3 +42,5 @@ socket.bind != socket.connect , wat is wat??
 
 
 import pickle (mag dit wel?) om een lijst door te sturen
+
+- RCPT TO: multiple recipients

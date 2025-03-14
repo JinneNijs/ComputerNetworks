@@ -33,8 +33,8 @@ def userAuthentication(socket):
         user_text = "USER"
         socket.send(user_text.encode())
         received_user = socket.recv(1024).decode()
-        password_test = "PASS"
-        socket.send(password_test.encode())
+        password_text = "PASS"
+        socket.send(password_text.encode())
         received_password = socket.recv(1024).decode()
         #checks if user and password are know and valid, returns 1 if true, 0 if not
         test = checkTextFile(received_user, received_password)
@@ -126,7 +126,6 @@ def main():
     # usable to send and receive data on the connection,
     # and address is the address bound to the socket on the other end of the connection.
     c, adress = my_socket.accept()
-    print("accepted")
     print(f"Connected to: {adress}")
 
     while True:
