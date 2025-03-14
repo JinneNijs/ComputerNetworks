@@ -5,9 +5,6 @@ import pickle
 import sys
 
 
-def mailSearchingServer(socket, option):
-    return
-
 #vraagt user en password in terminal
 def checkTextFile(user, password):
     with open("userinfo.txt") as file:
@@ -148,6 +145,7 @@ def main():
             strList = str(mailList)
             #geeft de mails terug aan de client
             c.send(strList.encode())
+            deleted_mails = []
             while True:
                 command = c.recv(1024).decode()
                 if command == "STAT":
@@ -164,11 +162,42 @@ def main():
                     else:
                         command, nr = command.split()
                         len, bytes = performSTAT(mailList[int(nr)],user)
-                        if nr > len:
+                        if int(nr) > len:
                             c.send(("ERROR nr is bigger than number of messages").encode())
 
                         c.send((f"+OK {nr} {bytes}").encode())
-
+                elif command.startswith("RETR"):
+                    if command == "RETR":
+                        c.send(("-ERR no message number attached").encode())
+                    else:
+                        command, nr = command.split()
+                        len = findNumberOfMessages(mailList)
+                        nr = int(nr)
+                        if nr > len:
+                            c.send(("-ERR no such message").encode())
+                        #hier moet eerst de grootte van die ene mail gevonden worden en dan de message doorgegeven worden (zie rfc)
+                        #eindigen door een punt door te sturen
+                elif command.startswith("DELE"):
+                    if command == "DELE":
+                        c.send(("-ERR no message number attached").encode())
+                    else:
+                        command, nr = command.split()
+                        len = findNumberOfMessages(mailList)
+                        nr = int(nr)
+                        if nr > len:
+                            c.send(("-ERR no such message").encode())
+                        else:
+                            if nr in deleted_mails:
+                                c.send((f"-ERR message {nr} already deleted").encode())
+                            else:
+                                #lijst bijhouden en deze dan gebruiken bij QUIT om ze uit mymailbox te verwijderen
+                                deleted_mails.append(nr)
+                                c.send((f"+OK message {nr} deleted").encode())
+                elif command == "RSET":
+                    #lijst terug nul maken
+                    deleted_mails = []
+                    len, bytes = performSTAT(mailList,user)
+                    c.send((f"+OK maildrop has {len} messages ({bytes} octets)").encode())
                 elif command == "QUIT":
                     # remove all messages markes as delete TO DO
                     nmbrOfMess = str(findNumberOfMessages(mailList))
@@ -176,9 +205,6 @@ def main():
                     break
 
         # Mail Searching
-        if text == "Mail Searching" or text == "3":
-            option = c.recv(1024).decode()
-            mailSearchingServer(c, option)
     c.close()
 
 if __name__== "__main__":
