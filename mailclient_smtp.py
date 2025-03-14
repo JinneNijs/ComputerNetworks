@@ -47,6 +47,8 @@ def MailManagementClient(socket):
     while True:
         received = socket.recv(1024).decode()
         print(f"N: {received}")
+        if "signing off" in received:
+            break
         if received == "USER" or received == "PASS":
             str = input('S: ')
             socket.send(str.encode())
@@ -56,9 +58,50 @@ def MailManagementClient(socket):
             current_maillist = received
             #If the mailing list is received, go on to the management part where you can enter commands like STAT(which I haven't written yet)
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
+            while True:
+                command = input("Command? ")
+                socket.send(command.encode())
+                if command == "STAT":
+                    received = socket.recv(1024).decode()
+                    print(f"N: {received}")
+                if command.startswith("LIST"):
+                    if len(command)> len("LIST"):
+                        received = socket.recv(1024).decode()
+                        print(f"N: {received}")
+                    else:
+                        while True:
+                            received = socket.recv(1024).decode()
+                            print(f"N: {received}")
+                            if received == ".":
+                                break
+
+                if command == "QUIT":
+                    break
             break
 
 
+
+
+def checkTextFile(user, password):
+    with open("userinfo.txt") as file:
+        # read all lines of the file for user and passwords
+        lines = file.readlines()
+        for line in lines:
+            # if line starts with space, end of file
+            if line.startswith(" "):
+                break
+            # separate user from password
+            username = line.split()[0]
+
+            if user == username:
+                actual_password = line.split()[1]
+                if password == actual_password:
+                    file.close()
+                    #als alles klopt, return 1
+                    return 1
+    file.close()
+    #user /password niet in file  of fout
+    return 0
 
 
 def main():
@@ -70,9 +113,17 @@ def main():
     pop3_port = 12346
     pop3_socket = socket.socket()
     pop3_socket.connect((hostname,pop3_port))
-
     while True:
-        str = input('Option: 1)Mail Sending, 2) Mail Management, 3) Mail searching, 4) Exit ? Enter number or name: ')
+        username = input("Username? ")
+        password = input("Password?")
+        # checks if user and password are know and valid, returns 1 if true, 0 if not
+        test = checkTextFile(username,password)
+        if test == 1:
+            break
+        print("Wrong Username or Password. Please try again!")
+    while True:
+
+        str = input('Hello '+ username + '\nOptions:\n 1)Mail Sending,\n 2) Mail Management,\n 3) Mail searching,\n 4) Exit ?\n Enter number or name: ')
         if str == "Exit" or str == "4":
             break
         if str == "Mail Sending" or str == "1":

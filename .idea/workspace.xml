@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="">
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication back and forth with MAIL protocol">
+      <change beforePath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stan/my_mailbox" beforeDir="false" afterPath="$PROJECT_DIR$/Stan/my_mailbox" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +22,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,9 +41,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/mailserver_smtp.py" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -53,14 +50,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.mailclient_smtp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mailserver_smtp.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.mailclient_smtp.executor": "Run",
+    "Python.mailserver_smtp.executor": "Run",
+    "Python.popserver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="mailserver_smtp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="ComputerNetworks" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (ComputerNetworks)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mailserver_smtp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -109,42 +132,7 @@
       <option name="project" value="LOCAL" />
       <updated>1741084307255</updated>
     </task>
-    <task id="LOCAL-00005" summary="Client can send messages of multiple lines and the server adds the local time at the right place. Still need to add a function (in the client?) that checks the format of the mail, but is difficult right now because each line is send independently to the server. Maybe first append all lines inside the client and send the whole message as one to the server?">
-      <created>1741441314131</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1741441314131</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Added an input to start the client where they choose which option and made seperate functions for MailSendingClient and MailSendingServer so that the main functions will not be too large">
-      <created>1741443419246</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1741443419246</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Started on Mail Management part in (mostly) popserver.py.">
-      <created>1741527670301</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1741527670301</updated>
-    </task>
-    <task id="LOCAL-00008" summary="MailManagementClient toegevoegd, maar is nog niet klaar (de client kan zijn mails nu krijgen, maar nu moeten de operaties nog uitgevoerd kunnen worden)">
-      <created>1741529874257</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1741529874257</updated>
-    </task>
-    <task id="LOCAL-00009" summary="MailManagementClient toegevoegd, maar is nog niet klaar (de client kan zijn mails nu krijgen, maar nu moeten de operaties nog uitgevoerd kunnen worden)">
-      <created>1741530510054</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1741530510054</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -152,10 +140,6 @@
     <MESSAGE value="First try of socket + sending data over socket&#10;Works" />
     <MESSAGE value="Communication ba" />
     <MESSAGE value="Communication back and forth with MAIL protocol" />
-    <MESSAGE value="Client can send messages of multiple lines and the server adds the local time at the right place. Still need to add a function (in the client?) that checks the format of the mail, but is difficult right now because each line is send independently to the server. Maybe first append all lines inside the client and send the whole message as one to the server?" />
-    <MESSAGE value="Added an input to start the client where they choose which option and made seperate functions for MailSendingClient and MailSendingServer so that the main functions will not be too large" />
-    <MESSAGE value="Started on Mail Management part in (mostly) popserver.py." />
-    <MESSAGE value="MailManagementClient toegevoegd, maar is nog niet klaar (de client kan zijn mails nu krijgen, maar nu moeten de operaties nog uitgevoerd kunnen worden)" />
-    <option name="LAST_COMMIT_MESSAGE" value="MailManagementClient toegevoegd, maar is nog niet klaar (de client kan zijn mails nu krijgen, maar nu moeten de operaties nog uitgevoerd kunnen worden)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Communication back and forth with MAIL protocol" />
   </component>
 </project>
