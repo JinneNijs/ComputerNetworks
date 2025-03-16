@@ -147,7 +147,14 @@ def MailManagementClient(pop_socket):
                             print(f"N: {received}")
                             if received == ".":
                                 break
-
+                if command.startswith("RETR"):
+                    while True:
+                        received = pop_socket.recv(1024).decode()
+                        print(f"N: {received}")
+                        if received == "-ERR no such message":
+                            break
+                        if received == ".":
+                            break
                 if command == "QUIT":
                     break
             break

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="HELO aangemaakt, niet klaar">
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="LIST command finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notes on SMTP" beforeDir="false" afterPath="$PROJECT_DIR$/Notes on SMTP" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,16 +24,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "assignee": "JinneNijs"
+      &quot;assignee&quot;: &quot;JinneNijs&quot;
     }
   ],
-  "lastFilter": {
-    "assignee": "JinneNijs"
+  &quot;lastFilter&quot;: {
+    &quot;assignee&quot;: &quot;JinneNijs&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JinneNijs/ComputerNetworks.git&quot;,
@@ -58,6 +56,7 @@
   "keyToString": {
     "Python.mailclient_smtp.executor": "Run",
     "Python.mailserver_smtp.executor": "Run",
+    "Python.main.executor": "Run",
     "Python.popserver.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master"
@@ -152,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741986067595</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="LIST command finished">
+      <option name="closed" value="true" />
+      <created>1741992123254</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1741992123254</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -162,6 +169,7 @@
     <MESSAGE value="Communication back and forth with MAIL protocol" />
     <MESSAGE value="Update mailserver&#10;If wrong format -&gt; try again" />
     <MESSAGE value="HELO aangemaakt, niet klaar" />
-    <option name="LAST_COMMIT_MESSAGE" value="HELO aangemaakt, niet klaar" />
+    <MESSAGE value="LIST command finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="LIST command finished" />
   </component>
 </project>

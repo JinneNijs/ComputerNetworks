@@ -66,7 +66,18 @@ def getMailInfo(mail):
     info.append(subject)
     return
 
-
+def findMessage(username, nr,octets):
+    with open(username + "/my_mailbox", "r") as myfile:
+        # Read file line by line
+        line = myfile.readline()
+        i = 0
+        while i < nr:
+            if line == "\n":
+                i+=1
+                break
+            line= myfile.readline()
+        message = "".join(myfile.readlines(octets)[:-1])
+        return message
 def findMails(username):
     mailList = []
     current_mail = []
@@ -197,18 +208,25 @@ def main():
                     else:
                         command, nr = command.split()
                         nr= int(nr)
-                        if nr > total:
-                            c.send(("ERROR nr is bigger than number of messages").encode())
+                        if nr > total or nr < 1:
+                            c.send(("ERROR no message with this number").encode())
+                            continue
                         c.send((f"+OK {nr} {bytes[nr-1]}").encode())
                 elif command.startswith("RETR"):
                     if command == "RETR":
-                        c.send(("-ERR no message number attached").encode())
+                        c.send(("-ERR no such message").encode())
                     else:
                         command, nr = command.split()
-                        total = findNumberOfMessages(mailList)
                         nr = int(nr)
-                        if nr > total:
+                        if nr > total or nr <1:
                             c.send(("-ERR no such message").encode())
+                            continue
+                        else:
+                            #stuurt het aantal octets van het bericht door naar de client
+                            c.send((f"+OK {bytes[nr-1]} octets").encode())
+                            message = findMessage(user,nr,bytes[nr-1])
+                            c.send((f"{message}").encode())
+                            c.send((".").encode())
                         #hier moet eerst de grootte van die ene mail gevonden worden en dan de message doorgegeven worden (zie rfc)
                         #eindigen door een punt door te sturen
                 elif command.startswith("DELE"):
@@ -218,7 +236,7 @@ def main():
                         command, nr = command.split()
                         total = findNumberOfMessages(mailList)
                         nr = int(nr)
-                        if nr > total:
+                        if nr > total or nr < 1:
                             c.send(("-ERR no such message").encode())
                         else:
                             if nr in deleted_mails:
