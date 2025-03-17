@@ -69,6 +69,7 @@ def findAndAppendTime(full_message):
     full_message.append("Received: " + string_local_time)
 
 def checkMessageFormat(message):
+
     if len(message) < 5:
         return 0
     elif message[0].startswith("From:") and message[1].startswith("To:") and message[2].startswith("Subject:"):
@@ -82,6 +83,7 @@ def checkMessageFormat(message):
 # ontvangt enkel berichten en slaagt deze op. Stuurt geen berichten terug, enkel controlesignalen
 def MailSendingServer(c, cs):
     while True:
+
         text = c.recv(1024).decode()
         if text.startswith("HELO"):
             cs["HELO"] = "NOK"
