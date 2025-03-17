@@ -1,4 +1,5 @@
 import os
+import threading
 import socket
 import sys
 import time
@@ -160,49 +161,49 @@ def MailSendingServer(c, cs):
             c.send((commands.get(-1)+ "wrong format used, please try again").encode())
 
 
-
-def main():
-    #specify which port to listen on
+def startSMTPServer():
+    # specify which port to listen on
     my_port = 12345
-    #get the hostname of the server
+    # get the hostname of the server
     hostname = socket.gethostname()
 
-    #create a socket
+    # create a socket
     my_socket = socket.socket()
 
-    #bind the socket to the host and port
-    my_socket.bind((hostname,my_port))
+    # bind the socket to the host and port
+    my_socket.bind((hostname, my_port))
     print("binded")
-    #wait for a connection, specify number of simultaneous clients
+    # wait for a connection, specify number of simultaneous clients
     my_socket.listen(1)
     print("done listening")
-    #adress = IP-adress/host,port
-    #Accept a connection.
+    # adress = IP-adress/host,port
+    # Accept a connection.
     # The socket must be bound to an address and listening for connections.
     # The return value is a pair (conn, address) where conn is a new socket object
     # usable to send and receive data on the connection,
     # and address is the address bound to the socket on the other end of the connection.
-    c, adress = my_socket.accept()
-    print(f"Connected to: {adress}")
+    while True:
+        c, adress = my_socket.accept()
+        clientThread = threading.Thread(target=main, args=[c])
+        clientThread.start()
+        print(f"Connected to: {adress}")
+        print(f"Number of active clients: {threading.active_count() - 1}")
+
+def main(c):
+
     #control signals
     cs = {"HELO" : "NOK",
           "MAIL": "NOK",
           "RCPT": "NOK"}
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
-        text = c.recv(1024).decode()
+        c.send((f"220 <{DOMAIN}>").encode())
         # If no data is received, break the loop
-        if not text or text == "Exit":
-            break
-        print(f"Received from client: {text}")
         # MAIL SENDING
-        if text == "Mail Sending" or text == "1":
-            MailSendingServer(c, cs)
-        else:
-            c.send(("Wrong input, try again").encode())
+        MailSendingServer(c, cs)
     c.close()
 
-
+DOMAIN = "kuleuven.be"
 
 if __name__== "__main__":
-    main()
+    startSMTPServer()

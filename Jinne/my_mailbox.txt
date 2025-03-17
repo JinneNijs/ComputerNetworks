@@ -1,0 +1,12 @@
+From:Jinne@vtk.be
+To:Jinne@vtk.be
+Subject:1ste bericht
+Received: 2025-03-17 16:31
+Dit is het 1ste bericht
+
+From:Jinne
+To:Jinne
+Subject: test multithreading
+Received: 2025-03-17 16:58
+Dit is een test om te zien of de server tussen threads in update
+
