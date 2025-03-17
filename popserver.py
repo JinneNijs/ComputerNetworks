@@ -1,4 +1,5 @@
 import socket
+import threading
 import time
 from fileinput import close
 import pickle
@@ -159,8 +160,7 @@ def findAndDeleteMail(user, number):
                 myfile.write(line)
     return
 
-
-def main():
+def startPopServer():
     # specify which port to listen on
     my_port = 12346
     # get the hostname of the server
@@ -182,8 +182,15 @@ def main():
     # The return value is a pair (conn, address) where conn is a new socket object
     # usable to send and receive data on the connection,
     # and address is the address bound to the socket on the other end of the connection.
-    c, adress = my_socket.accept()
-    print(f"Connected to: {adress}")
+    while True:
+        c, adress = my_socket.accept()
+        clientThread = threading.Thread(target= main,args=[c])
+        clientThread.start()
+        print(f"Connected to: {adress}")
+        print(f"Number of active clients: {threading.active_count()-1}")
+
+def main(c):
+
 
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
@@ -287,8 +294,8 @@ def main():
                     c.send(("+OK pop3 server signing off (Number of messages left : "+ nmbrOfMess +")").encode())
                     break
 
-        # Mail Searching
+
     c.close()
 
 if __name__== "__main__":
-    main()
+    startPopServer()

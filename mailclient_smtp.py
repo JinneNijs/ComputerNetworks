@@ -2,35 +2,108 @@ import socket
 import time
 from os import popen
 
+from mailserver_smtp import checkMessageFormat
 
+def checkMessageFormat(message_list):
+
+    if len(message_list) < 5:
+        return False
+    elif message_list[0].startswith("From:") and message_list[1].startswith("To:") and message_list[2].startswith("Subject:"):
+        return True
+    else:
+        return False
+def checkDomain(message_list,domain):
+    bl_from = False
+    bl_to = False
+
+    index_from = int(message_list[0].find("@"))
+    domain_from = message_list[0][index_from+1:]
+    if domain_from== domain:
+        bl_from = True
+
+    index_to = int(message_list[1].find("@"))
+    domain_to = message_list[1][index_to + 1:]
+    if domain_to == domain:
+        bl_to= True
+    return bl_from*bl_to
+def findUsername(text):
+
+    index_at = int(text.find('@'))
+    if index_at == -1:
+        return 0
+    Username = text[5:index_at]
+    return Username
 # send mails to the mailserver socket, using SMTP protocol
 # berichten moeten hier in de volgende volgorde verstuurd worden en in dit formaat:
 # 1 : MAIL FROM: <name@example.com>
 # 2 : RCPT TO: <name@example.com>
 # 3 : DATA <message>
-def MailSendingClient(mailserver_socket):
+def MailSendingClient(s):
+    smtp_port = 12345
+    smtp_socket = socket.socket()
+    hostname = socket.gethostname()
+    smtp_socket.connect((hostname, smtp_port))
+    domain = s.recv(1024).decode()
+    print(f"Server: 220 {domain} Service ready")
+    message = ""
     while True:
-        str = input('S: ')
-        mailserver_socket.send(str.encode())
-        received_text = mailserver_socket.recv(1024).decode()
-        print(f"N: {received_text}")
+        message_str = input('S: ')
 
-        if received_text.startswith("354"):
-            while True:
-                message_str = input('S: ')
-                mailserver_socket.send(message_str.encode())
-                if message_str == ".":
-                    received_text = mailserver_socket.recv(1024).decode()
-                    if received_text.startswith("250"):
-                        print(f"N: {received_text}" + ", Message sent")
-                        return
-                    else:
-                        print("ERROR: Start over with MAIL FROM")
-                        break
-        if received_text.startswith("550"):
-            continue
-        if received_text == "ERROR":
-            break
+        if message_str == ".":
+            message_list = message.split("\n")
+            correctFormat = checkMessageFormat(message_list)
+            if correctFormat:
+                #first check domains
+                correctDomain = checkDomain(message_list,domain)
+                if correctDomain:
+                    s.send((f"HELO {domain}").encode())
+                    received= s.recv(1024).decode()
+                    print(f"Client: {received}")
+
+                    if received == f"250 OK Hello {domain}":
+                        s.send((f"MAIL FROM: {findUsername(message_list[0])}").encode())
+                        received = s.recv(1024).decode()
+                        print(f"Client: {received}")
+                        if received.startswith("250"):
+                            s.send((f"RCPT TO: {findUsername(message_list[1])}").encode())
+                            received = s.recv(1024).decode()
+                            print(f"Client: {received}")
+
+                            if received.startswith("250"):
+                                s.send((f"DATA").encode())
+                                received = s.recv(1024).decode()
+                                print(f"Client: {received}")
+
+                                if received.startswith("354"):
+                                    for line in message_list:
+                                        s.send((line).encode())
+                                    received = s.recv(1024).decode()
+                                    print(f"Client: {received}")
+
+                                    if received.startswith("250"):
+                                        s.send(("QUIT").encode())
+                                        received = s.recv(1024).decode()
+                                        print(f"Client: {received}")
+
+
+                                        s.close()
+                            else:
+                                print("550 No such user. Try again from scratch")
+                                continue
+                #wrong domain
+                        else:
+                            print("550 No such user. Try again from scratch")
+                            continue
+
+
+
+
+
+            else:
+                print("wrong format please try again")
+                continue
+        message = message + message_str +"\n"
+
 
 
 #doet hetzelfde als findMails, maar houdt nu de volledige mails bij
@@ -215,7 +288,6 @@ def main():
             break
             # Optie 1 : mail sending
         if str == "Mail Sending" or str == "1":
-            smtp_socket.send(str.encode())
             MailSendingClient(smtp_socket)
             # Optie 2 : mail managment
         if str == "Mail Management" or str == "2":
