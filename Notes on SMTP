@@ -42,3 +42,9 @@ socket.bind != socket.connect , wat is wat??
 
 
 import pickle (mag dit wel?) om een lijst door te sturen
+
+- RCPT TO: multiple recipients
+- pop3 commands -> case-insensitive
+- pop3 server is ready -> voor authenticatie
+- na authenticatie moet er een lock komen op de mailbox van de user
+- QUIT kan ook tijdens authenticatie -> dan moet er niks gebeuren

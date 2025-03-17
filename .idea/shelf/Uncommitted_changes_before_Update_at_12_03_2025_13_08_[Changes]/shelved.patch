@@ -1,0 +1,114 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9645d26c-1826-4214-a169-0a4be534caa5\" name=\"Changes\" comment=\"Communication back and forth with MAIL protocol\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Notes on SMTP\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Notes on SMTP\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mailserver_smtp.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/mailserver_smtp.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\r\n  \"lastFilter\": {\r\n    \"state\": \"OPEN\",\r\n    \"assignee\": \"JinneNijs\"\r\n  }\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/JinneNijs/ComputerNetworks.git\",\r\n    \"accountId\": \"6fc7f632-9970-4698-ad0a-728cdb9671d2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/mailserver_smtp.py\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2toSC4jy9Fp9wINqGZ8iDFo9l1G\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Python.mailclient_smtp.executor\": \"Run\",\r\n    \"Python.mailserver_smtp.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"master\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9645d26c-1826-4214-a169-0a4be534caa5\" name=\"Changes\" comment=\"\" />\r\n      <created>1741016803279</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1741016803279</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Startup\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1741017045373</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1741017045373</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"First try of socket + sending data over socket&#10;Works\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1741021845748</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1741021845748</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Communication ba\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1741082503660</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1741082503660</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Communication back and forth with MAIL protocol\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1741084307255</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1741084307255</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Startup\" />\r\n    <MESSAGE value=\"First try of socket + sending data over socket&#10;Works\" />\r\n    <MESSAGE value=\"Communication ba\" />\r\n    <MESSAGE value=\"Communication back and forth with MAIL protocol\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Communication back and forth with MAIL protocol\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e4080869738e33aaf644af242c755f02ce2ffd14)
++++ b/.idea/workspace.xml	(date 1741692916488)
+@@ -4,10 +4,8 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication back and forth with MAIL protocol">
++    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Notes on code">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Notes on SMTP" beforeDir="false" afterPath="$PROJECT_DIR$/Notes on SMTP" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -24,18 +22,18 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN",
+-    "assignee": "JinneNijs"
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;JinneNijs&quot;
+   }
+-}]]></component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/JinneNijs/ComputerNetworks.git",
+-    "accountId": "6fc7f632-9970-4698-ad0a-728cdb9671d2"
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/JinneNijs/ComputerNetworks.git&quot;,
++    &quot;accountId&quot;: &quot;6fc7f632-9970-4698-ad0a-728cdb9671d2&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/mailserver_smtp.py" root0="FORCE_HIGHLIGHTING" />
+   </component>
+@@ -48,18 +46,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Python.mailclient_smtp.executor": "Run",
+-    "Python.mailserver_smtp.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "master"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Python.mailclient_smtp.executor&quot;: &quot;Run&quot;,
++    &quot;Python.mailserver_smtp.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
++        <option value="bundled-python-sdk-6a3326d57233-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.24807.21" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -104,7 +102,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1741084307255</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL-00005" summary="First version of SMTP integrated">
++      <option name="closed" value="true" />
++      <created>1741088650210</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1741088650210</updated>
++    </task>
++    <task id="LOCAL-00006" summary="Notes on code">
++      <option name="closed" value="true" />
++      <created>1741088849627</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1741088849627</updated>
++    </task>
++    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="VcsManagerConfiguration">
+@@ -112,6 +126,8 @@
+     <MESSAGE value="First try of socket + sending data over socket&#10;Works" />
+     <MESSAGE value="Communication ba" />
+     <MESSAGE value="Communication back and forth with MAIL protocol" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Communication back and forth with MAIL protocol" />
++    <MESSAGE value="First version of SMTP integrated" />
++    <MESSAGE value="Notes on code" />
++    <option name="LAST_COMMIT_MESSAGE" value="Notes on code" />
+   </component>
+ </project>
+\ No newline at end of file

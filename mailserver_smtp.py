@@ -1,5 +1,6 @@
 import os
 import socket
+import sys
 import time
 from fileinput import close
 
@@ -16,6 +17,9 @@ def findUsername(text):
         return 0
     Username = text[:index_at]
     return Username
+
+#bericht ontvangen is van de vorm : MAIL FROM: <name@example.com>
+#geeft name terug
 def findReversePath(text):
     index_from = int(text.find('FROM:'))
     if index_from==-1:
@@ -23,11 +27,13 @@ def findReversePath(text):
     #text van de vorm MAIL FROM:<reversepath>
     rp = text[index_from+5:]
     return rp
+#bericht ontvangen is van de vorm : TO: <name@example.com>
+#geeft name terug
 def findForwardPath(text):
     index_from = int(text.find('TO:'))
     if index_from == -1:
         return "/"
-    # text van de vorm MAIL FROM:<reversepath>
+    # text van de vorm RCPT TO:<forwardpath>
     fp = text[index_from + 3:]
     return fp
 
@@ -62,15 +68,28 @@ def findAndAppendTime(full_message):
     string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
     full_message.append("Received: " + string_local_time)
 
+# berichten moeten hier in de volgende volgorde komen:
+# 1 : MAIL FROM: <name@example.com>
+# 2 : RCPT TO: <name@example.com>
+# 3 : DATA <message>
+# ontvangt enkel berichten en slaagt deze op. Stuurt geen berichten terug, enkel controlesignalen
 def MailSendingServer(c, cs):
     while True:
         text = c.recv(1024).decode()
-        if text.startswith("MAIL"):
+        if text.startswith("HELO"):
+            cs["HELO"] = "NOK"
+            if text[4:] == " vtk.be":
+                c.send((commands.get(250) + f" Hello vtk.be").encode())
+                cs["HELO"]= "OK"
+            else:
+                c.send((commands.get(-1) +" wrong domain").encode())
+        elif text.startswith("MAIL FROM:") and cs["HELO"]=="OK":
             # clear out buffers etc..
             cs["MAIL"] = "NOK"
             cs["RCPT"] = "NOK"
+            #find the sender of the mail = person to sent back to
             rp = findReversePath(text)
-            # no reversepath found
+            # no reversepath found: "/" control signal
             if rp == "/":
                 # send ERROR
                 c.send(commands.get(-1).encode())
@@ -81,7 +100,7 @@ def MailSendingServer(c, cs):
             cs["MAIL"] = "OK"
         # RCPT
         # check also that MAIL procedure has been gone through
-        elif text.startswith("RCPT") and cs.get("MAIL") == "OK":
+        elif text.startswith("RCPT TO:") and cs.get("MAIL") == "OK":
 
             fp = findForwardPath(text)
             username = findUsername(fp)
@@ -89,21 +108,21 @@ def MailSendingServer(c, cs):
             recipients = findRecipients()
             # if no forwardpath is found
             if fp == "/":
-                c.send(commands.get(-1).encode())
+                c.send((commands.get(-1) + " RCPT format incorrect").encode())
                 break
             # recipient not in database
             if username not in recipients:
                 # send 550 ERROR
                 c.send(commands.get(550).encode())
-                break
+                continue
             # forwardpath found and recipient ok
             # send 250 ok
             c.send(commands.get(250).encode())
             cs["RCPT"] = "OK"
         # DATA
         elif text.startswith("DATA") and cs.get("RCPT") == "OK":
-            # // is our STOP signal
-            c.send((commands.get(354) + "Enter message, end with //: ").encode())
+            # . is our STOP signal
+            c.send((commands.get(354) + " Enter message, end with .: ").encode())
             # receive message
             full_message = []
             while True:
@@ -124,6 +143,9 @@ def MailSendingServer(c, cs):
                 c.send(commands.get(250).encode())
             # end of mail
             return
+        else:
+            c.send((commands.get(-1)+ "wrong format used, please try again").encode())
+
 
 
 def main():
@@ -131,7 +153,6 @@ def main():
     my_port = 12345
     #get the hostname of the server
     hostname = socket.gethostname()
-    print(hostname)
 
     #create a socket
     my_socket = socket.socket()
@@ -149,9 +170,10 @@ def main():
     # usable to send and receive data on the connection,
     # and address is the address bound to the socket on the other end of the connection.
     c, adress = my_socket.accept()
-    print("accepted")
     print(f"Connected to: {adress}")
-    cs = {"MAIL": "NOK",
+    #control signals
+    cs = {"HELO" : "NOK",
+          "MAIL": "NOK",
           "RCPT": "NOK"}
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
@@ -160,9 +182,11 @@ def main():
         if not text or text == "Exit":
             break
         print(f"Received from client: {text}")
-        # MAIL
+        # MAIL SENDING
         if text == "Mail Sending" or text == "1":
             MailSendingServer(c, cs)
+        else:
+            c.send(("Wrong input, try again").encode())
     c.close()
 
 
