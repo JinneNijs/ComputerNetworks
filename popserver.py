@@ -66,22 +66,24 @@ def getMailInfo(mail):
     info.append(subject)
     return
 
-def findMessage(username, nr,octets):
-    with open(username + "/my_mailbox", "r") as myfile:
+def findMessage(username, nr):
+    message = []
+    with open(username + "/my_mailbox.txt", "r") as myfile:
         # Read file line by line
         line = myfile.readline()
-        i = 0
-        while i < nr:
+        i = 1
+        while i <= nr:
             if line == "\n":
                 i+=1
-                break
+            elif i == nr:
+                message.append(line)
             line= myfile.readline()
-        message = "".join(myfile.readlines(octets)[:-1])
-        return message
+        processed_email = message[:4] + ['\n'.join(message[4:])]
+        return processed_email
 def findMails(username):
     mailList = []
     current_mail = []
-    with open(username + "/my_mailbox", "r") as myfile:
+    with open(username + "/my_mailbox.txt", "r") as myfile:
         # Read file line by line
         line = myfile.readline()
         ser_nr = 1
@@ -111,7 +113,7 @@ def findMails(username):
 
     return mailList
 def performSTAT(maillist,username):
-    with open(username +"/my_mailbox","r") as myfile:
+    with open(username +"/my_mailbox.txt","r") as myfile:
         message ="".join(myfile.readlines())
         bytes = sys.getsizeof(message)
     myfile.close()
@@ -125,8 +127,8 @@ def findNumberOfMessages(list):
 def scanListing(user):
 
     numbers_bytes = []
-    message= ""
-    with open(user+"/my_mailbox",'r') as myfile:
+    message = ""
+    with open(user+"/my_mailbox.txt",'r') as myfile:
 
         while True:
             line = myfile.readline()
@@ -142,7 +144,20 @@ def scanListing(user):
     myfile.close()
     return numbers_bytes
 
-
+def findAndDeleteMail(user, number):
+    i = 1
+    with open(user +"/my_mailbox.txt","r") as myfile:
+        lines = myfile.readlines()
+    with open(user +"/my_mailbox.txt","w") as myfile:
+        for line in lines:
+            if line == "\n" and i == number:
+                i += 1
+            elif line == "\n":
+                i += 1
+                myfile.write(line)
+            elif i != number:
+                myfile.write(line)
+    return
 
 
 def main():
@@ -195,12 +210,24 @@ def main():
                 bytes = scanListing(user)
                 total = len(bytes)
                 if command == "STAT":
-                    c.send((f"+OK {len(bytes)} {sum(bytes)}").encode())
+                    sum_bytes = sum(bytes)
+                    length_bytes = len(bytes)
+                    for mail_nr in deleted_mails:
+                        length_bytes -= 1
+                        sum_bytes -= bytes[mail_nr-1]
+                    c.send((f"+OK {length_bytes} {sum_bytes}").encode())
                 elif command.startswith("LIST"):
 
                     if command == "LIST":
-                        c.send((f"+OK {len(bytes)} {sum(bytes)}").encode())
+                        sum_bytes = sum(bytes)
+                        length_bytes = len(bytes)
+                        for mail_nr in deleted_mails:
+                            length_bytes -= 1
+                            sum_bytes -= bytes[mail_nr - 1]
+                        c.send((f"+OK {length_bytes} {sum_bytes}").encode())
                         for nr in range(0,len(bytes)):
+                            if nr + 1 in deleted_mails:
+                                continue
                             c.send((f"+OK {nr+1} {bytes[nr]}").encode())
                             time.sleep(1)
                         time.sleep(1)
@@ -208,8 +235,8 @@ def main():
                     else:
                         command, nr = command.split()
                         nr= int(nr)
-                        if nr > total or nr < 1:
-                            c.send(("ERROR no message with this number").encode())
+                        if nr > total or nr < 1 or nr in deleted_mails:
+                            c.send(("ERROR no message with this number (or has been deleted)").encode())
                             continue
                         c.send((f"+OK {nr} {bytes[nr-1]}").encode())
                 elif command.startswith("RETR"):
@@ -224,7 +251,7 @@ def main():
                         else:
                             #stuurt het aantal octets van het bericht door naar de client
                             c.send((f"+OK {bytes[nr-1]} octets").encode())
-                            message = findMessage(user,nr,bytes[nr-1])
+                            message = findMessage(user,nr)
                             c.send((f"{message}").encode())
                             c.send((".").encode())
                         #hier moet eerst de grootte van die ene mail gevonden worden en dan de message doorgegeven worden (zie rfc)
@@ -252,7 +279,11 @@ def main():
                     c.send((f"+OK maildrop has {total} messages ({bytes} octets)").encode())
                 elif command == "QUIT":
                     # remove all messages markes as delete TO DO
-                    nmbrOfMess = str(findNumberOfMessages(mailList))
+                    for mail_nr in deleted_mails:
+                        print(f"Deleting {mail_nr}")
+                        findAndDeleteMail(user, mail_nr)
+                    newMaillist= findMails(user)
+                    nmbrOfMess = str(findNumberOfMessages(newMaillist))
                     c.send(("+OK pop3 server signing off (Number of messages left : "+ nmbrOfMess +")").encode())
                     break
 

@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="LIST command finished">
+      <change afterPath="$PROJECT_DIR$/Jinne/my_mailbox.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stan/my_mailbox.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_13_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_13_08__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinne/my_mailbox" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stan/my_mailbox" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +28,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,6 +54,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/mailserver_smtp.py" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -52,27 +66,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.mailclient_smtp.executor": "Run",
-    "Python.mailserver_smtp.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.popserver.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.mailclient_smtp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mailserver_smtp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.popserver.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="mailserver_smtp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ComputerNetworks" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (ComputerNetworks)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

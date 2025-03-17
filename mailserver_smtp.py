@@ -58,7 +58,7 @@ def findRecipients():
 def storeMessage(user,text):
     #look for stop signal and returns actual message
     #store in mailbox of user
-    with open(user + "/my_mailbox", "a") as myfile:
+    with open(user + "/my_mailbox.txt", "a") as myfile:
         myfile.write(text)
         myfile.write("\n\n")
     return "OK"
@@ -67,6 +67,13 @@ def findAndAppendTime(full_message):
     local_time = time.localtime()
     string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
     full_message.append("Received: " + string_local_time)
+
+def checkMessageFormat(message):
+    if len(message) < 5:
+        return 0
+    elif message[0].startswith("From:") and message[1].startswith("To:") and message[2].startswith("Subject:"):
+        return 1
+    else: return 0
 
 # berichten moeten hier in de volgende volgorde komen:
 # 1 : MAIL FROM: <name@example.com>
@@ -134,6 +141,10 @@ def MailSendingServer(c, cs):
                 if message_line.startswith("Subject:"):
                     findAndAppendTime(full_message)
             # put all the lines in 1 string and seperate them with new line
+            check = checkMessageFormat(full_message)
+            if check == 0:
+                c.send((commands.get(-1) + "wrong message format used, please try again").encode())
+                continue
             message = "\n".join(full_message)
 
             # store message in mailbox of username

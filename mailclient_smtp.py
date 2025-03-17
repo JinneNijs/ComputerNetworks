@@ -37,7 +37,7 @@ def MailSendingClient(mailserver_socket):
 def findFullMails(username):
     mailList = []
     current_mail = []
-    with open(username + "/my_mailbox", "r") as myfile:
+    with open(username + "/my_mailbox.txt", "r") as myfile:
         # Read file line by line
         line = myfile.readline()
         ser_nr = 1
@@ -156,6 +156,8 @@ def MailManagementClient(pop_socket):
                         if received == ".":
                             break
                 if command == "QUIT":
+                    received = pop_socket.recv(1024).decode()
+                    print(f"N: {received}")
                     break
             break
 
