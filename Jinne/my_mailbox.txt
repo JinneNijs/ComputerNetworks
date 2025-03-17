@@ -82,3 +82,15 @@ Subject:test3
 Received: 2025-03-17 20:46
 sjlkslkfjskfsdfskf
 
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:sjfsls
+Received: 2025-03-17 20:59
+sfkljzeil
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:wooo
+Received: 2025-03-17 21:07
+STANN
+
