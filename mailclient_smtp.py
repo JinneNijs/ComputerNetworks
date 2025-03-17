@@ -6,7 +6,7 @@ from mailserver_smtp import checkMessageFormat
 
 def checkMessageFormat(message_list):
 
-    if len(message_list) < 5:
+    if len(message_list) < 4:
         return False
     elif message_list[0].startswith("From:") and message_list[1].startswith("To:") and message_list[2].startswith("Subject:"):
         return True
@@ -26,30 +26,33 @@ def checkDomain(message_list,domain):
     if domain_to == domain:
         bl_to= True
     return bl_from*bl_to
-def findUsername(text):
 
-    index_at = int(text.find('@'))
-    if index_at == -1:
-        return 0
-    Username = text[5:index_at]
-    return Username
+def findToMail(text):
+
+    username = text[3:]
+    return username
+def findFromMail(text):
+    username = text[5:]
+    return username
+
 # send mails to the mailserver socket, using SMTP protocol
 # berichten moeten hier in de volgende volgorde verstuurd worden en in dit formaat:
 # 1 : MAIL FROM: <name@example.com>
 # 2 : RCPT TO: <name@example.com>
 # 3 : DATA <message>
-def MailSendingClient(s):
+def MailSendingClient():
     smtp_port = 12345
-    smtp_socket = socket.socket()
+    s = socket.socket()
     hostname = socket.gethostname()
-    smtp_socket.connect((hostname, smtp_port))
+    s.connect((hostname, smtp_port))
     domain = s.recv(1024).decode()
-    print(f"Server: 220 {domain} Service ready")
+    print(f"Server: 220 <{domain}> Service ready")
     message = ""
     while True:
         message_str = input('S: ')
 
         if message_str == ".":
+            message = message + message_str
             message_list = message.split("\n")
             correctFormat = checkMessageFormat(message_list)
             if correctFormat:
@@ -58,44 +61,44 @@ def MailSendingClient(s):
                 if correctDomain:
                     s.send((f"HELO {domain}").encode())
                     received= s.recv(1024).decode()
-                    print(f"Client: {received}")
+                    print(f"Server: {received}")
 
                     if received == f"250 OK Hello {domain}":
-                        s.send((f"MAIL FROM: {findUsername(message_list[0])}").encode())
+                        s.send((f"MAIL FROM: {findFromMail(message_list[0])}").encode())
                         received = s.recv(1024).decode()
-                        print(f"Client: {received}")
+                        print(f"Server: {received}")
                         if received.startswith("250"):
-                            s.send((f"RCPT TO: {findUsername(message_list[1])}").encode())
+                            s.send((f"RCPT TO: {findToMail(message_list[1])}").encode())
                             received = s.recv(1024).decode()
-                            print(f"Client: {received}")
+                            print(f"Server: {received}")
 
                             if received.startswith("250"):
                                 s.send((f"DATA").encode())
                                 received = s.recv(1024).decode()
-                                print(f"Client: {received}")
+                                print(f"Server: {received}")
 
                                 if received.startswith("354"):
                                     for line in message_list:
                                         s.send((line).encode())
+                                        time.sleep(0.5)
                                     received = s.recv(1024).decode()
-                                    print(f"Client: {received}")
+                                    print(f"Server: {received}")
 
                                     if received.startswith("250"):
                                         s.send(("QUIT").encode())
                                         received = s.recv(1024).decode()
-                                        print(f"Client: {received}")
-
-
-                                        s.close()
+                                        print(f"Server: {received}")
+                                        return
                             else:
                                 print("550 No such user. Try again from scratch")
                                 continue
-                #wrong domain
+
                         else:
                             print("550 No such user. Try again from scratch")
                             continue
-
-
+                else:
+                    print("Wrong domain")
+                    continue
 
 
 
@@ -134,7 +137,7 @@ def findFullMails(username):
             # Read the next line
             line = myfile.readline()
     return mailList
-def MailSearchingClient(socket, option, username):
+def MailSearchingClient(option, username):
     #Searching for words
     if option == "1)":
         words = input('Words/sentences input: ')
@@ -185,7 +188,14 @@ def MailSearchingClient(socket, option, username):
     return
 
 # bdlt om mails van een persoon te managen
-def MailManagementClient(pop_socket):
+def MailManagementClient():
+    hostname = socket.gethostname()
+
+    pop3_port = 12346
+    pop_socket = socket.socket()
+    pop_socket.connect((hostname, pop3_port))
+    str_mm = "Mail Management"
+    pop_socket.send(str_mm.encode())
     # The part for the authentication
     while True:
         received = pop_socket.recv(1024).decode()
@@ -263,14 +273,7 @@ def main():
     # definier poort, vindt hostname en maak een socket aan
     # bind de socket aan de poort en hostname
     # analoog voor de pop server
-    smtp_port = 12345
-    smtp_socket = socket.socket()
-    hostname = socket.gethostname()
-    smtp_socket.connect((hostname,smtp_port))
 
-    pop3_port = 12346
-    pop3_socket = socket.socket()
-    pop3_socket.connect((hostname,pop3_port))
 
     while True:
         # vraag name en passwoord op
@@ -288,22 +291,20 @@ def main():
             break
             # Optie 1 : mail sending
         if str == "Mail Sending" or str == "1":
-            MailSendingClient(smtp_socket)
+            MailSendingClient()
             # Optie 2 : mail managment
         if str == "Mail Management" or str == "2":
-            pop3_socket.send(str.encode())
-            MailManagementClient(pop3_socket)
+            MailManagementClient()
             # Optie 3: mail searching
         if str == "Mail Searching" or str == "3":
             #Vraag, moet je voor mail searching eerst mail management gedaan hebben (en ingelogd zijn?) Zo ja, werken met commands zoals bij mail sending?
-            pop3_socket.send(str.encode())
+
             option = input('How would you like to search: 1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): ')
-            pop3_socket.send(option.encode())
-            MailSearchingClient(pop3_socket,option, username)
+
+            MailSearchingClient(option, username)
 
 
-    smtp_socket.close()
-    pop3_socket.close()
+
 
 if __name__== "__main__":
     main()

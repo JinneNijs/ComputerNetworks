@@ -293,9 +293,8 @@ def main(c):
                     nmbrOfMess = str(findNumberOfMessages(newMaillist))
                     c.send(("+OK pop3 server signing off (Number of messages left : "+ nmbrOfMess +")").encode())
                     break
-
-
     c.close()
+
 
 if __name__== "__main__":
     startPopServer()

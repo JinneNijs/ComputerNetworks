@@ -16,7 +16,7 @@ def findUsername(text):
     index_at = int(text.find('@'))
     if index_at == -1:
         return 0
-    Username = text[:index_at]
+    Username = text[1:index_at]
     return Username
 
 #bericht ontvangen is van de vorm : MAIL FROM: <name@example.com>
@@ -39,7 +39,7 @@ def findForwardPath(text):
     return fp
 
 def findRecipients():
-    recipients = set()
+    recipients = []
     with open("userinfo.txt") as file:
         #read all lines of the file
         lines = file.readlines()
@@ -50,7 +50,7 @@ def findRecipients():
             #separate user from password
             recipient = line.split()[0]
             #store user in set
-            recipients.add(recipient)
+            recipients.append(recipient)
     file.close()
     return recipients
 
@@ -83,82 +83,92 @@ def checkMessageFormat(message):
 # 3 : DATA <message>
 # ontvangt enkel berichten en slaagt deze op. Stuurt geen berichten terug, enkel controlesignalen
 def MailSendingServer(c, cs):
-    while True:
-
-        text = c.recv(1024).decode()
-        if text.startswith("HELO"):
-            cs["HELO"] = "NOK"
-            if text[4:] == " vtk.be":
-                c.send((commands.get(250) + f" Hello vtk.be").encode())
-                cs["HELO"]= "OK"
-            else:
-                c.send((commands.get(-1) +" wrong domain").encode())
-        elif text.startswith("MAIL FROM:") and cs["HELO"]=="OK":
-            # clear out buffers etc..
-            cs["MAIL"] = "NOK"
-            cs["RCPT"] = "NOK"
-            #find the sender of the mail = person to sent back to
-            rp = findReversePath(text)
-            # no reversepath found: "/" control signal
-            if rp == "/":
-                # send ERROR
-                c.send(commands.get(-1).encode())
-                break
-            # reverspath ok, send 250 ok
-            c.send(commands.get(250).encode())
-            # UPDATE CONTROLSIGNAL
-            cs["MAIL"] = "OK"
-        # RCPT
-        # check also that MAIL procedure has been gone through
-        elif text.startswith("RCPT TO:") and cs.get("MAIL") == "OK":
-
-            fp = findForwardPath(text)
-            username = findUsername(fp)
-            # find all possible recipients at this given moment
-            recipients = findRecipients()
-            # if no forwardpath is found
-            if fp == "/":
-                c.send((commands.get(-1) + " RCPT format incorrect").encode())
-                break
-            # recipient not in database
-            if username not in recipients:
-                # send 550 ERROR
-                c.send(commands.get(550).encode())
-                continue
-            # forwardpath found and recipient ok
-            # send 250 ok
-            c.send(commands.get(250).encode())
-            cs["RCPT"] = "OK"
-        # DATA
-        elif text.startswith("DATA") and cs.get("RCPT") == "OK":
-            # . is our STOP signal
-            c.send((commands.get(354) + " Enter message, end with .: ").encode())
-            # receive message
-            full_message = []
-            while True:
-                message_line = c.recv(1024).decode()
-                if message_line == ".":
+    try:
+        while True:
+            text = c.recv(1024).decode()
+            print(f"Client: {text}")
+            if text.startswith("HELO"):
+                cs["HELO"] = "NOK"
+                if text[5:] == DOMAIN:
+                    c.send((commands.get(250) + f" Hello {DOMAIN}").encode())
+                    cs["HELO"]= "OK"
+                else:
+                    c.send((commands.get(-1) +" wrong domain").encode())
+            elif text.startswith("MAIL FROM:") and cs["HELO"]=="OK":
+                # clear out buffers etc..
+                cs["MAIL"] = "NOK"
+                cs["RCPT"] = "NOK"
+                #find the sender of the mail = person to sent back to
+                rp = findReversePath(text)
+                rp = findUsername(rp)
+                recipients = findRecipients()
+                # no reversepath found: "/" control signal
+                if rp == "/":
+                    # send ERROR
+                    c.send(commands.get(-1).encode())
                     break
-                full_message.append(message_line)
-                # Na de subject line, vind de tijd en voeg deze toe aan de message
-                if message_line.startswith("Subject:"):
-                    findAndAppendTime(full_message)
-            # put all the lines in 1 string and seperate them with new line
-            check = checkMessageFormat(full_message)
-            if check == 0:
-                c.send((commands.get(-1) + "wrong message format used, please try again").encode())
-                continue
-            message = "\n".join(full_message)
-
-            # store message in mailbox of username
-            cs = storeMessage(username, message)
-            # if stored, send 250 ok
-            if cs == "OK":
+                if rp not in recipients:
+                    # send 550 ERROR
+                    c.send(commands.get(550).encode())
+                    continue
+                # reverspath ok, send 250 ok
                 c.send(commands.get(250).encode())
-            # end of mail
-            return
-        else:
-            c.send((commands.get(-1)+ "wrong format used, please try again").encode())
+                # UPDATE CONTROLSIGNAL
+                cs["MAIL"] = "OK"
+            # RCPT
+            # check also that MAIL procedure has been gone through
+            elif text.startswith("RCPT TO:") and cs.get("MAIL") == "OK":
+
+                fp = findForwardPath(text)
+                username = findUsername(fp)
+                # find all possible recipients at this given moment
+                recipients = findRecipients()
+                # if no forwardpath is found
+                if fp == "/":
+                    c.send((commands.get(-1) + " RCPT format incorrect").encode())
+                    break
+                # recipient not in database
+                if username not in recipients:
+                    # send 550 ERROR
+                    c.send(commands.get(550).encode())
+                    continue
+                # forwardpath found and recipient ok
+                # send 250 ok
+                c.send(commands.get(250).encode())
+                cs["RCPT"] = "OK"
+            # DATA
+            elif text.startswith("DATA") and cs.get("RCPT") == "OK":
+                # . is our STOP signal
+                c.send((commands.get(354) + " Enter message, end with .: ").encode())
+                # receive message
+                full_message = []
+                while True:
+                    message_line = c.recv(1024).decode()
+                    if message_line == ".":
+                        break
+                    full_message.append(message_line)
+                    # Na de subject line, vind de tijd en voeg deze toe aan de message
+                    if message_line.startswith("Subject:"):
+                        findAndAppendTime(full_message)
+                # put all the lines in 1 string and seperate them with new line
+                message = "\n".join(full_message)
+
+                # store message in mailbox of username
+                cs = storeMessage(username, message)
+                # if stored, send 250 ok
+                if cs == "OK":
+                    c.send((commands.get(250) + " message sent").encode())
+                # end of mail
+            elif text == "QUIT":
+                break
+    except ConnectionResetError:
+        print("Client forcefully closed the connection.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        c.close()
+        print("Closed client connection")
 
 
 def startSMTPServer():
@@ -184,10 +194,10 @@ def startSMTPServer():
     # and address is the address bound to the socket on the other end of the connection.
     while True:
         c, adress = my_socket.accept()
-        clientThread = threading.Thread(target=main, args=[c])
+        clientThread = threading.Thread(target=main, args=(c,))
         clientThread.start()
         print(f"Connected to: {adress}")
-        print(f"Number of active clients: {threading.active_count() - 1}")
+        print(f"Number of active threads: {threading.active_count() - 1}")
 
 def main(c):
 
@@ -197,13 +207,14 @@ def main(c):
           "RCPT": "NOK"}
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
-        c.send((f"220 <{DOMAIN}>").encode())
+        c.send((f"{DOMAIN}").encode())
         # If no data is received, break the loop
         # MAIL SENDING
         MailSendingServer(c, cs)
+        return
     c.close()
 
 DOMAIN = "kuleuven.be"
 
-if __name__== "__main__":
+if __name__ == "__main__":
     startSMTPServer()

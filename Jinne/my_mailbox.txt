@@ -10,3 +10,75 @@ Subject: test multithreading
 Received: 2025-03-17 16:58
 Dit is een test om te zien of de server tussen threads in update
 
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:test
+Received: 2025-03-17 20:03
+Testing
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject: third test
+Received: 2025-03-17 20:05
+testing
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:another test
+Received: 2025-03-17 20:07
+testing once again
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject: new test
+Received: 2025-03-17 20:09
+im done
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:test
+Received: 2025-03-17 20:21
+sjflsjifo
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:test
+Received: 2025-03-17 20:30
+testing
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:testing again
+Received: 2025-03-17 20:33
+sfkslsjl
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:test
+Received: 2025-03-17 20:39
+Testing
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:testing
+Received: 2025-03-17 20:40
+testttt
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject: test
+Received: 2025-03-17 20:45
+sfsjqfq
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject: test2
+Received: 2025-03-17 20:45
+sflsde
+
+From:Stan@kuleuven.be
+To:Jinne@kuleuven.be
+Subject:test3
+Received: 2025-03-17 20:46
+sjlkslkfjskfsdfskf
+
