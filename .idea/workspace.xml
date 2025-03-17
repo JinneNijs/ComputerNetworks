@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Communication back and forth with MAIL protocol">
-      <change beforePath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="DELE &amp; RSET toegevoegd, MailSearching af (mss nog errors toevoegen als foute input?)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stan/my_mailbox" beforeDir="false" afterPath="$PROJECT_DIR$/Stan/my_mailbox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +55,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.mailclient_smtp">
     <configuration name="mailclient_smtp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ComputerNetworks" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,6 +179,7 @@
     <MESSAGE value="First try of socket + sending data over socket&#10;Works" />
     <MESSAGE value="Communication ba" />
     <MESSAGE value="Communication back and forth with MAIL protocol" />
-    <option name="LAST_COMMIT_MESSAGE" value="Communication back and forth with MAIL protocol" />
+    <MESSAGE value="DELE &amp; RSET toegevoegd, MailSearching af (mss nog errors toevoegen als foute input?)" />
+    <option name="LAST_COMMIT_MESSAGE" value="DELE &amp; RSET toegevoegd, MailSearching af (mss nog errors toevoegen als foute input?)" />
   </component>
 </project>
