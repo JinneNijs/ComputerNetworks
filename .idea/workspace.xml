@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="for merge">
-      <change beforePath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ComputerNetworks.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinne/my_mailbox.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Jinne/my_mailbox.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +156,21 @@
       <option name="project" value="LOCAL" />
       <updated>1741992123254</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="MailSending &amp; MailManagement werken, maar probleem met Jinne zijn maillijst">
+      <created>1742241452213</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742241452213</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)">
+      <created>1742242101228</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742242101228</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -172,7 +181,9 @@
     <MESSAGE value="Update mailserver&#10;If wrong format -&gt; try again" />
     <MESSAGE value="HELO aangemaakt, niet klaar" />
     <MESSAGE value="LIST command finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="LIST command finished" />
+    <MESSAGE value="MailSending &amp; MailManagement werken, maar probleem met Jinne zijn maillijst" />
+    <MESSAGE value="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
