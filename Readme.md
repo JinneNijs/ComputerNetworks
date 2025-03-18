@@ -119,41 +119,79 @@ Options:
  2) Mail Management,
  3) Mail searching,
  4) Exit ?
- Enter number or name: 2
+    
+Enter number or name: 2
+
 Server: +OK POP3 server is ready
+
 Server: USER
+
 S: Jinne
+
 Server: PASS
+
 S: Jinne
+
 Server: [[1, 'From:Jinne@vtk.be', 'Received: 2025-03-17 16:31', 'Subject:1ste bericht'], [2, 'From:Jinne', 'Received: 2025-03-17 16:58', 'Subject: test multithreading'], [3, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:21', 'Subject:test'], [4, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:33', 'Subject:testing again'], [5, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:39', 'Subject:test']]
+
 Server: [[6, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:45', 'Subject: test'], [7, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:45', 'Subject: test2'], [8, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:46', 'Subject:test3'], [9, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 20:59', 'Subject:sjfsls'], [10, 'From:Stan@kuleuven.be', 'Received: 2025-03-17 21:07', 'Subject:wooo']]
+
 Server: [[11, 'From:Stan@kuleuven.be', 'Received: 2025-03-18 08:43', 'Subject: threading'], [12, 'From:Jinne@kuleuven.be', 'Received: 2025-03-18 09:34', 'Subject:akakak'], [13, 'From:Stan@kuleuven.be', 'Received: 2025-03-18 09:39', 'Subject: no text'], [14, 'From:Stan@kuleuven.be', 'Received: 2025-03-18 09:40', 'Subject: no text2']]
+
 Command? STAT
+
 Server: +OK 14 2090
+
 Command? LIST 7
+
 Server: +OK 7 141
+
 Command? RETR 7
+
 Server: +OK 141 octets
-Server: ['From:Stan@kuleuven.be\n', 'To:Jinne@kuleuven.be\n', 'Subject: test2\n', 'Received: 2025-03-17 20:45\n', 'sflsde\n']
+
+Server: ['From:Stan@kuleuven.be\n', 'To:Jinne@kuleuven.be\n', 'Subject: test2\n', 'Received: 2025-03-17 20:45\n', 
+'sflsde\n']
+
 Server: .
+
 Command? DELE 7
+
 Server: +OK message 7 deleted
+
 Command? LIST 7
+
 Server: ERROR no message with this number (or has been deleted)
+
 Command? DELE 7
+
 Server: -ERR message 7 already deleted
+
 Command? LIST 20
+
 Server: ERROR no message with this number (or has been deleted)
+
 Command? RSET
+
 Server: +OK maildrop has 14 messages (1467 octets)
+
 Command? LIST 7
+
 Server: +OK 7 141
+
 Command? DELE 5
+
 Server: +OK message 5 deleted
+
 Command? DELE 6
+
 Server: +OK message 6 deleted
+
 Command? STAT
+
 Server: +OK 12 1809
+
 Command? QUIT
+
 Server: +OK pop3 server signing off (Number of messages left : 12)
 "
