@@ -209,6 +209,11 @@ def MailManagementClient():
         elif received.startswith("Wrong credentials"):
             continue
         elif received.startswith("["):
+            while True:
+                received = pop_socket.recv(1024).decode()
+                if received ==".":
+                    break
+                print(f"N: {received}")
             #current_maillist = received
             #If the mailing list is received, go on to the management part where you can enter commands like STAT
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?

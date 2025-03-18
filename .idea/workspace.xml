@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="LIST command finished">
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Useless functions deleted">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinne/my_mailbox.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Jinne/my_mailbox.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stan/my_mailbox.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Stan/my_mailbox.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741992123254</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Useless functions deleted">
+      <option name="closed" value="true" />
+      <created>1742284155027</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742284155027</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -172,6 +179,7 @@
     <MESSAGE value="Update mailserver&#10;If wrong format -&gt; try again" />
     <MESSAGE value="HELO aangemaakt, niet klaar" />
     <MESSAGE value="LIST command finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="LIST command finished" />
+    <MESSAGE value="Useless functions deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Useless functions deleted" />
   </component>
 </project>

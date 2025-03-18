@@ -46,8 +46,6 @@ def userAuthentication(socket):
         #checks if user and password are know and valid, returns 1 if true, 0 if not
         test = checkTextFile(received_user, received_password)
         if test == 1:
-            connection_text = "+OK POP3 server is ready"
-            socket.send(connection_text.encode())
             #als user en password kloppen, return username
             return received_user
         else:
@@ -179,7 +177,8 @@ def startPopServer():
         print(f"Number of active clients: {threading.active_count()-1}")
 
 def main(c):
-
+    connection_text = "+OK POP3 server is ready"
+    c.send(connection_text.encode())
 
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
@@ -199,7 +198,13 @@ def main(c):
             mailList = findMails(user)
             strList = str(mailList)
             #geeft de mails terug aan de client
-            c.send(strList.encode())
+            multipleOfFive = len(mailList)//5
+            for i in range(0,multipleOfFive):
+                c.send(str(mailList[i*5:(i+1)*5]).encode())
+                time.sleep(0.5)
+            if len(mailList)%5!=0:
+                c.send(str(mailList[5*multipleOfFive:]).encode())
+            c.send(".".encode())
             deleted_mails = []
             while True:
                 command = c.recv(1024).decode()
@@ -225,8 +230,8 @@ def main(c):
                             if nr + 1 in deleted_mails:
                                 continue
                             c.send((f"+OK {nr+1} {bytes[nr]}").encode())
-                            time.sleep(1)
-                        time.sleep(1)
+                            time.sleep(0.5)
+                        time.sleep(0.5)
                         c.send(".".encode())
                     else:
                         command, nr = command.split()
@@ -275,6 +280,9 @@ def main(c):
                     c.send((f"+OK maildrop has {total} messages ({bytes} octets)").encode())
                 elif command == "QUIT":
                     # remove all messages markes as delete TO DO
+                    #delete mails in descending order, so that the numbers still match, after you deleted
+                    # a mail
+                    deleted_mails = sorted(deleted_mails,reverse=True)
                     for mail_nr in deleted_mails:
                         print(f"Deleting {mail_nr}")
                         findAndDeleteMail(user, mail_nr)
