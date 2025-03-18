@@ -112,6 +112,7 @@ Important:
 - You start by re-entering you USER and PASS to reassure that it is you who wants to manage your mails. This has to be the same user as the mail client.
 - After that, you will receive your e-mails.
 - Then you can enter the commands (STAT, RSET, QUIT, LIST (with a number or not), RETR and DELE (both with a number))
+- The commands are case-insensitive, so for example, you can enter stat,STAT,StaT, etc.
 - When you enter an invalid command, you can just re-enter a new command
   
 This is what you receive on the client side:
