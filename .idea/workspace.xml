@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="c" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1742242101228</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="c">
+      <created>1742284176259</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742284176259</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -183,17 +188,7 @@
     <MESSAGE value="LIST command finished" />
     <MESSAGE value="MailSending &amp; MailManagement werken, maar probleem met Jinne zijn maillijst" />
     <MESSAGE value="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Alles lijkt grotendeels te werken, wel klein probleem bij als maillijst te groot is&#10;Ook nog mooier maken en foutproof (geen users door elkaar gebruiken)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mailserver_smtp.py</url>
-          <line>101</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="c" />
+    <option name="LAST_COMMIT_MESSAGE" value="c" />
   </component>
 </project>
