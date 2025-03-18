@@ -48,3 +48,11 @@ Subject:fjsm
 Received: 2025-03-18 09:47
 Test of ik kan sturen vanuit mijn eigen naam
 
+From:Jinne@kuleuven.be
+To:Stan@kuleuven.be
+Subject: Voorbeeld mail
+Received: 2025-03-18 10:10
+Beste Stan
+Dit is een voorbeeld.
+Geniet ervan!
+

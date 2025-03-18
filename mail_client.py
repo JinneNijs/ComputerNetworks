@@ -303,7 +303,7 @@ def main():
     while True:
         # vraag name en passwoord op
         username = input("Username? ")
-        password = input("Password?")
+        password = input("Password? ")
         # checks if user and password are know and valid, returns 1 if true, 0 if not
         test = checkTextFile(username,password)
         if test == 1:
@@ -311,7 +311,7 @@ def main():
         print("Wrong Username or Password. Please try again!")
     while True:
         # geef alle opties aan de klant voor het beheren van zijn mailbox
-        str = input('Hello ' + username + '\nOptions:\n 1)Mail Sending,\n 2) Mail Management,\n 3) Mail searching,\n 4) Exit ?\n Enter number or name: ')
+        str = input('Hello ' + username + '\nOptions:\n 1) Mail Sending,\n 2) Mail Management,\n 3) Mail searching,\n 4) Exit ?\n Enter number or name: ')
         if str == "Exit" or str == "4":
             break
             # Optie 1 : mail sending

@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="DELE update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
-    </list>
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="User authentication" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +50,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.mailclient_smtp.executor": "Debug",
+    "Python.mailclient_smtp.executor": "Run",
     "Python.mailserver_smtp.executor": "Run",
     "Python.main.executor": "Run",
     "Python.popserver.executor": "Run",
@@ -176,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742286100088</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="User authentication">
+      <option name="closed" value="true" />
+      <created>1742288836608</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742288836608</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -189,17 +193,7 @@
     <MESSAGE value="LIST command finished" />
     <MESSAGE value="Useless functions deleted" />
     <MESSAGE value="DELE update" />
-    <option name="LAST_COMMIT_MESSAGE" value="DELE update" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mailclient_smtp.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="User authentication" />
+    <option name="LAST_COMMIT_MESSAGE" value="User authentication" />
   </component>
 </project>
