@@ -46,8 +46,7 @@ def userAuthentication(socket):
         #checks if user and password are know and valid, returns 1 if true, 0 if not
         test = checkTextFile(received_user, received_password)
         if test == 1:
-            connection_text = "+OK POP3 server is ready"
-            socket.send(connection_text.encode())
+
             #als user en password kloppen, return username
             return received_user
         else:
@@ -179,8 +178,8 @@ def startPopServer():
         print(f"Number of active clients: {threading.active_count()-1}")
 
 def main(c):
-
-
+    connection_text = "+OK POP3 server is ready"
+    c.send(connection_text.encode())
     while True:
         # Receive data from the client (up to 1024 bytes) and decode it
         text = c.recv(1024).decode()

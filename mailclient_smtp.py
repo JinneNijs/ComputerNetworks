@@ -199,7 +199,7 @@ def MailManagementClient():
     while True:
         received = pop_socket.recv(1024).decode()
         print(f"N: {received}")
-        # command QUIT has been enterd, get out of managment system
+        # command QUIT has been entered, get out of management system
         if "signing off" in received:
             break
         # pop server will ask for authentication
