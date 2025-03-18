@@ -138,6 +138,7 @@ def MailSendingServer(c, cs):
                 full_message = []
                 while True:
                     message_line = c.recv(1024).decode()
+                    print(f"Client: {message_line}")
                     if message_line == ".":
                         break
                     full_message.append(message_line)

@@ -34,6 +34,8 @@ def userAuthentication(socket):
         user_text = "USER"
         socket.send(user_text.encode())
         received_user = socket.recv(1024).decode()
+        if received_user == "wrong user":
+            continue
         if received_user == "QUIT":
             socket.send(("+OK POP3 server signing off").encode())
             return "quit"
