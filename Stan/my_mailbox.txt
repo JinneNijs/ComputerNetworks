@@ -36,3 +36,15 @@ Subject: multi
 Received: 2025-03-18 08:43
 Dit is een test voor het threading gedeelte
 
+From:Jinne@kuleuven.be
+To:Stan@kuleuven.be
+Subject: check user = sender
+Received: 2025-03-18 09:40
+Check of je kan sturen vanuit je eigen mailbox
+
+From:Jinne@kuleuven.be
+To:Stan@kuleuven.be
+Subject:fjsm
+Received: 2025-03-18 09:47
+Test of ik kan sturen vanuit mijn eigen naam
+
