@@ -69,13 +69,7 @@ def findAndAppendTime(full_message):
     string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
     full_message.append("Received: " + string_local_time)
 
-def checkMessageFormat(message):
 
-    if len(message) < 5:
-        return 0
-    elif message[0].startswith("From:") and message[1].startswith("To:") and message[2].startswith("Subject:"):
-        return 1
-    else: return 0
 
 # berichten moeten hier in de volgende volgorde komen:
 # 1 : MAIL FROM: <name@example.com>
@@ -112,7 +106,7 @@ def MailSendingServer(c, cs):
                     c.send(commands.get(550).encode())
                     continue
                 # reverspath ok, send 250 ok
-                c.send(commands.get(250).encode())
+                c.send((commands.get(250)+ "sender ok").encode())
                 # UPDATE CONTROLSIGNAL
                 cs["MAIL"] = "OK"
             # RCPT
@@ -134,7 +128,7 @@ def MailSendingServer(c, cs):
                     continue
                 # forwardpath found and recipient ok
                 # send 250 ok
-                c.send(commands.get(250).encode())
+                c.send((commands.get(250)+" recipient ok").encode())
                 cs["RCPT"] = "OK"
             # DATA
             elif text.startswith("DATA") and cs.get("RCPT") == "OK":

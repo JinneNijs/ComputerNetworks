@@ -30,3 +30,9 @@ Subject:test
 Received: 2025-03-17 21:07
 slfsflkzej
 
+From:Jinne@kuleuven.be
+To:Stan@kuleuven.be
+Subject: multi
+Received: 2025-03-18 08:43
+Dit is een test voor het threading gedeelte
+
