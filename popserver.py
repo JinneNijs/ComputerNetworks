@@ -248,8 +248,8 @@ def main(c):
                     else:
                         command, nr = command.split()
                         nr = int(nr)
-                        if nr > total or nr <1:
-                            c.send(("-ERR no such message").encode())
+                        if nr > total or nr <1 or nr in deleted_mails:
+                            c.send(("-ERR no such message (or has been deleted)").encode())
                             continue
                         else:
                             #stuurt het aantal octets van het bericht door naar de client

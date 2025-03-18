@@ -212,7 +212,7 @@ def MailManagementClient(username):
     # The part for the authentication
     while True:
         received = pop_socket.recv(1024).decode()
-        print(f"N: {received}")
+        print(f"Server: {received}")
         # command QUIT has been enterd, get out of managment system
         if "signing off" in received:
             break
@@ -234,7 +234,7 @@ def MailManagementClient(username):
                 received = pop_socket.recv(1024).decode()
                 if received ==".":
                     break
-                print(f"N: {received}")
+                print(f"Server: {received}")
             #current_maillist = received
             #If the mailing list is received, go on to the management part where you can enter commands like STAT
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
@@ -244,28 +244,28 @@ def MailManagementClient(username):
                 #stat en dele moeten zelfde doen
                 if command == "STAT" or command.startswith("DELE") or command == "RSET":
                     received = pop_socket.recv(1024).decode()
-                    print(f"N: {received}")
+                    print(f"Server: {received}")
                 if command.startswith("LIST"):
                     if len(command)> len("LIST"):
                         received = pop_socket.recv(1024).decode()
-                        print(f"N: {received}")
+                        print(f"Server: {received}")
                     else:
                         while True:
                             received = pop_socket.recv(1024).decode()
-                            print(f"N: {received}")
+                            print(f"Server: {received}")
                             if received == ".":
                                 break
                 if command.startswith("RETR"):
                     while True:
                         received = pop_socket.recv(1024).decode()
-                        print(f"N: {received}")
+                        print(f"Server: {received}")
                         if received == "-ERR no such message":
                             break
                         if received == ".":
                             break
                 if command == "QUIT":
                     received = pop_socket.recv(1024).decode()
-                    print(f"N: {received}")
+                    print(f"Server: {received}")
                     break
             break
 
