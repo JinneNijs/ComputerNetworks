@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Small change to RETR">
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Pop-commands case-insensitive">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mail_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/mail_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailserver_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailserver_smtp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pop_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/pop_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1742291113466</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Pop-commands case-insensitive">
+      <created>1742293035803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742293035803</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -204,6 +212,7 @@
     <MESSAGE value="DELE update" />
     <MESSAGE value="User authentication" />
     <MESSAGE value="Small change to RETR" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small change to RETR" />
+    <MESSAGE value="Pop-commands case-insensitive" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pop-commands case-insensitive" />
   </component>
 </project>

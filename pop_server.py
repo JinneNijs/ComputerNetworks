@@ -53,7 +53,7 @@ def userAuthentication(socket):
             error_text = "Wrong credentials, try again"
             socket.send(error_text.encode())
 
-
+# find a full Message inside mailbox.txt
 def findMessage(username, nr):
     message = []
     with open(username + "/my_mailbox.txt", "r") as myfile:
@@ -68,6 +68,8 @@ def findMessage(username, nr):
             line= myfile.readline()
         processed_email = message[:4] + ['\n'.join(message[4:])]
         return processed_email
+
+#create the list to send to the client with serial number, sender, subject and time
 def findMails(username):
     mailList = []
     current_mail = []
@@ -289,10 +291,11 @@ def main(c):
                         findAndDeleteMail(user, mail_nr)
                     newMaillist= findMails(user)
                     nmbrOfMess = str(findNumberOfMessages(newMaillist))
-                    c.send(("+OK pop3 server signing off (Number of messages left : "+ nmbrOfMess +")").encode())
+                    c.send(("+OK pop3 server signing off (Number of messages left : "+ nmbrOfMess + ")").encode())
                     break
     c.close()
 
 
 if __name__== "__main__":
     startPopServer()
+

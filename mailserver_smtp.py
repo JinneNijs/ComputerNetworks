@@ -4,31 +4,32 @@ import socket
 import time
 
 
-#COMMANDS
+# COMMANDS
 commands = {250: "250 OK",
             -1: "ERROR",
             550: "550 No such user",
             354: "354 Intermediate reply"}
 
+# starts with: name@example.com and gives back name
 def findUsername(text):
 
     index_at = int(text.find('@'))
     if index_at == -1:
-        return 0
+        return "/"
     Username = text[1:index_at]
     return Username
 
-#bericht ontvangen is van de vorm : MAIL FROM: <name@example.com>
-#geeft name terug
+# bericht ontvangen is van de vorm : MAIL FROM: <name@example.com>
+# geeft name@example.com terug
 def findReversePath(text):
     index_from = int(text.find('FROM:'))
     if index_from==-1:
         return "/"
-    #text van de vorm MAIL FROM:<reversepath>
+    # text van de vorm MAIL FROM:<reversepath>
     rp = text[index_from+5:]
     return rp
-#bericht ontvangen is van de vorm : TO: <name@example.com>
-#geeft name terug
+# bericht ontvangen is van de vorm : ...TO: <name@example.com>
+# geeft name@example.com terug
 def findForwardPath(text):
     index_from = int(text.find('TO:'))
     if index_from == -1:
@@ -37,40 +38,39 @@ def findForwardPath(text):
     fp = text[index_from + 3:]
     return fp
 
+# give back the users out of the userinfo.txt file
 def findRecipients():
     recipients = []
     with open("userinfo.txt") as file:
-        #read all lines of the file
+        # read all lines of the file
         lines = file.readlines()
         for line in lines:
-            #if line starts with space, end of file
+            # if line starts with space, end of file
             if line.startswith(" "):
                 break
-            #separate user from password
+            # separate user from password
             recipient = line.split()[0]
-            #store user in set
+            # store user in set
             recipients.append(recipient)
     file.close()
     return recipients
 
 
-
 def storeMessage(user,text):
-    #look for stop signal and returns actual message
     #store in mailbox of user
     with open(user + "/my_mailbox.txt", "a") as myfile:
         myfile.write(text)
         myfile.write("\n\n")
     return "OK"
 
+# add the time to the message
 def findAndAppendTime(full_message):
     local_time = time.localtime()
     string_local_time = time.strftime("%Y-%m-%d %H:%M", local_time)
     full_message.append("Received: " + string_local_time)
 
 
-
-# berichten moeten hier in de volgende volgorde komen:
+# Berichten moeten hier in de volgende volgorde komen:
 # 1 : MAIL FROM: <name@example.com>
 # 2 : RCPT TO: <name@example.com>
 # 3 : DATA <message>
@@ -82,18 +82,21 @@ def MailSendingServer(c, cs):
             print(f"Client: {text}")
             if text.startswith("HELO"):
                 cs["HELO"] = "NOK"
+                # check the domain
                 if text[5:] == DOMAIN:
                     c.send((commands.get(250) + f" Hello {DOMAIN}").encode())
+                    # turn the control signal to OK
                     cs["HELO"]= "OK"
                 else:
-                    c.send((commands.get(-1) +" wrong domain").encode())
-            elif text.startswith("MAIL FROM:") and cs["HELO"]=="OK":
+                    c.send((commands.get(-1) + " wrong domain").encode())
+            elif text.startswith("MAIL FROM:") and cs["HELO"] == "OK":
                 # clear out buffers etc..
                 cs["MAIL"] = "NOK"
                 cs["RCPT"] = "NOK"
-                #find the sender of the mail = person to sent back to
+                # find the sender of the mail = person to sent back to
                 rp = findReversePath(text)
                 rp = findUsername(rp)
+                # find all usernames inside the userinfo.txt file
                 recipients = findRecipients()
                 # no reversepath found: "/" control signal
                 if rp == "/":
@@ -105,13 +108,13 @@ def MailSendingServer(c, cs):
                     c.send(commands.get(550).encode())
                     continue
                 # reverspath ok, send 250 ok
-                c.send((commands.get(250)+ "sender ok").encode())
+                c.send((commands.get(250) + " sender ok").encode())
                 # UPDATE CONTROLSIGNAL
                 cs["MAIL"] = "OK"
             # RCPT
             # check also that MAIL procedure has been gone through
             elif text.startswith("RCPT TO:") and cs.get("MAIL") == "OK":
-
+                #find username of recipient
                 fp = findForwardPath(text)
                 username = findUsername(fp)
                 # find all possible recipients at this given moment
@@ -135,13 +138,14 @@ def MailSendingServer(c, cs):
                 c.send((commands.get(354) + " Enter message, end with .: ").encode())
                 # receive message
                 full_message = []
+                # Receive all the message lines
                 while True:
                     message_line = c.recv(1024).decode()
                     print(f"Client: {message_line}")
                     if message_line == ".":
                         break
                     full_message.append(message_line)
-                    # Na de subject line, vind de tijd en voeg deze toe aan de message
+                    # After subject line, find the tijd and add it
                     if message_line.startswith("Subject:"):
                         findAndAppendTime(full_message)
                 # put all the lines in 1 string and seperate them with new line
@@ -165,6 +169,7 @@ def MailSendingServer(c, cs):
         print("Closed client connection")
 
 
+# Start of the file
 def startSMTPServer():
     # specify which port to listen on
     my_port = 12345
@@ -188,6 +193,7 @@ def startSMTPServer():
     # and address is the address bound to the socket on the other end of the connection.
     while True:
         c, adress = my_socket.accept()
+        #start a new thread to perform main
         clientThread = threading.Thread(target=main, args=(c,))
         clientThread.start()
         print(f"Connected to: {adress}")
@@ -206,7 +212,7 @@ def main(c):
         # MAIL SENDING
         MailSendingServer(c, cs)
         return
-    c.close()
+
 
 DOMAIN = "kuleuven.be"
 

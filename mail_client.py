@@ -148,6 +148,8 @@ def findFullMails(username):
             # Read the next line
             line = myfile.readline()
     return mailList
+
+# full implementation for MailSearching
 def MailSearchingClient(option, username):
     #Searching for words
     if option == "1)":
@@ -163,19 +165,22 @@ def MailSearchingClient(option, username):
     maillist = findFullMails(username)
     #option 1 = words/sentences
     for mail in maillist:
+        # option 1 = words/sentences
         if option == "1)":
+            # For every element inside mail (so for From:..., To:..., Subject:..., etc.)
             for i in range(0,len(mail)):
                 if words in mail[i]:
                     #Voeg het message-gedeelte samen in 1 item in de lijst in plaats van dat elke aparte lijn 1 lijstitem is
                     processed_email = mail[:4] + ['\n'.join(mail[4:])]
                     print(processed_email)
                     break
+        # option 2 = date
         if option == "2)":
             date = words.split("/")
             month = date[0]
             day = date[1]
             year = date[2]
-            #datum op zelfde manier als in de mails
+            # change date to same format as in mails
             right_date = "20" + year + "-" + month + "-" + day
             if right_date in mail[3]:
                 #Voeg het message-gedeelte samen in 1 item in de lijst in plaats van dat elke aparte lijn 1 lijstitem is
@@ -190,7 +195,7 @@ def MailSearchingClient(option, username):
 
 
 
-# bdlt om mails van een persoon te managen
+# om mails van een persoon te managen
 def MailManagementClient(username):
     hostname = socket.gethostname()
 
