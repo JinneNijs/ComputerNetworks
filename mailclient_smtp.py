@@ -89,14 +89,17 @@ def MailSendingClient():
                                         print(f"Server: {received}")
                                         return
                             else:
-                                print("550 No such user. Try again from scratch")
+                                message = ""
+                                print("Try again from scratch")
                                 continue
 
                         else:
-                            print("550 No such user. Try again from scratch")
+                            message = ""
+                            print("Try again from scratch")
                             continue
                 else:
-                    print("Wrong domain")
+                    message = ""
+                    print("Wrong domain. Try again from scratch")
                     continue
 
 

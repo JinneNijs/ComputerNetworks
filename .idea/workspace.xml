@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Useless functions deleted">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinne/my_mailbox.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Jinne/my_mailbox.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,14 +66,12 @@
   <component name="RunManager">
     <configuration name="mailserver_smtp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ComputerNetworks" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (ComputerNetworks)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -181,5 +179,16 @@
     <MESSAGE value="LIST command finished" />
     <MESSAGE value="Useless functions deleted" />
     <option name="LAST_COMMIT_MESSAGE" value="Useless functions deleted" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mailclient_smtp.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
