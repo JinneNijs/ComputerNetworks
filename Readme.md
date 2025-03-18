@@ -209,7 +209,9 @@ Options:
  4) Exit ?
  Enter number or name: 3
 
-How would you like to search: 1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): 1
+How would you like to search:
+
+1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): 1
 
 Words/sentences input: 1ste
 
