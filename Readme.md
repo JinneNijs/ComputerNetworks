@@ -195,3 +195,19 @@ Command? QUIT
 
 Server: +OK pop3 server signing off (Number of messages left : 12)
 "
+
+This is an example of Mail Searching:
+Important: 
+- if your search term is not inside one of the mails. Your output will be empty.
+- Both "1)" and "1" work within the mail searching.
+Hello Jinne
+Options:
+ 1) Mail Sending,
+ 2) Mail Management,
+ 3) Mail searching,
+ 4) Exit ?
+ Enter number or name: 3
+How would you like to search: 1) Words/sentences, 2) Time, 3) Address ? Enter the number (for example "1)" ): 1
+Words/sentences input: 1ste
+output:
+['From:Jinne@vtk.be', 'To:Jinne@vtk.be', 'Subject:1ste bericht', 'Received: 2025-03-17 16:31', 'Dit is het 1ste bericht']
