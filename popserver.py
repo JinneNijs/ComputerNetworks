@@ -55,17 +55,6 @@ def userAuthentication(socket):
             error_text = "Wrong credentials, try again"
             socket.send(error_text.encode())
 
-#voor mail management: splitst mailbox om te sturen naar client
-def getMailInfo(mail):
-    lines = mail.strip().split("\n")
-    info = []
-    sender = lines[0]
-    received = lines[3]
-    subject = lines[2]
-    info.append(sender)
-    info.append(received)
-    info.append(subject)
-    return
 
 def findMessage(username, nr):
     message = []

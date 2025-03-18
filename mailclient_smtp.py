@@ -2,7 +2,6 @@ import socket
 import time
 from os import popen
 
-from mailserver_smtp import checkMessageFormat
 
 def checkMessageFormat(message_list):
 
