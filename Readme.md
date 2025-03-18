@@ -1,5 +1,7 @@
 Setup:
 
+The port for both servers are already specified inside the scripts. This is to make the testing easier. If necessary, this can be changed to input-based.
+
 First start pop_server.py and mailserver_smtp.py
 Than start mail_client.py
 
