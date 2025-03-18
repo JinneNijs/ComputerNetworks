@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="c" />
+    <list default="true" id="9645d26c-1826-4214-a169-0a4be534caa5" name="Changes" comment="Useless functions deleted">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailclient_smtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailclient_smtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/popserver.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,9 +20,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -65,12 +66,14 @@
   <component name="RunManager">
     <configuration name="mailserver_smtp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ComputerNetworks" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (ComputerNetworks)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -157,12 +160,13 @@
       <option name="project" value="LOCAL" />
       <updated>1741992123254</updated>
     </task>
-    <task id="LOCAL-00008" summary="c">
-      <created>1742286119873</created>
+    <task id="LOCAL-00008" summary="Useless functions deleted">
+      <option name="closed" value="true" />
+      <created>1742284155027</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1742286119873</updated>
+      <updated>1742284155027</updated>
     </task>
     <option name="localTasksCounter" value="9" />
     <servers />
@@ -175,7 +179,7 @@
     <MESSAGE value="Update mailserver&#10;If wrong format -&gt; try again" />
     <MESSAGE value="HELO aangemaakt, niet klaar" />
     <MESSAGE value="LIST command finished" />
-    <MESSAGE value="c" />
-    <option name="LAST_COMMIT_MESSAGE" value="c" />
+    <MESSAGE value="Useless functions deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Useless functions deleted" />
   </component>
 </project>
