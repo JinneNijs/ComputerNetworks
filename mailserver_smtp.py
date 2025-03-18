@@ -192,7 +192,7 @@ def startSMTPServer():
         clientThread = threading.Thread(target=main, args=(c,))
         clientThread.start()
         print(f"Connected to: {adress}")
-        print(f"Number of active threads: {threading.active_count() - 1}")
+        print(f"Number of active clients: {threading.active_count() - 1}")
 
 def main(c):
 
