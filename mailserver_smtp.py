@@ -1,9 +1,8 @@
-import os
+
 import threading
 import socket
-import sys
 import time
-from fileinput import close
+
 
 #COMMANDS
 commands = {250: "250 OK",

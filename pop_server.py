@@ -1,8 +1,6 @@
 import socket
 import threading
 import time
-from fileinput import close
-import pickle
 import sys
 
 
@@ -209,7 +207,8 @@ def main(c):
             c.send(".".encode())
             deleted_mails = []
             while True:
-                command = c.recv(1024).decode()
+                cmd = c.recv(1024).decode()
+                command = cmd.upper()
                 bytes = scanListing(user)
                 total = len(bytes)
                 if command == "STAT":

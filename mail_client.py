@@ -1,7 +1,5 @@
 import socket
 import time
-from os import popen
-from urllib.parse import uses_relative
 
 
 def checkMessageFormat(message_list):
@@ -190,15 +188,7 @@ def MailSearchingClient(option, username):
                 print(processed_email)
     return
 
-    socket.send(words.encode())
-    print("output:\n")
-    while True:
-        mail = socket.recv(1024).decode()
-        if mail.startswith("From:"):
-            print("{" + mail + "}\n")
-        else:
-            break
-    return
+
 
 # bdlt om mails van een persoon te managen
 def MailManagementClient(username):
@@ -240,6 +230,7 @@ def MailManagementClient(username):
             #Dus verderwerken met die current_maillist om daar commands op uit te voeren?
             while True:
                 command = input("Command? ")
+                command = command.upper()
                 pop_socket.send(command.encode())
                 #stat en dele moeten zelfde doen
                 if command == "STAT" or command.startswith("DELE") or command == "RSET":
